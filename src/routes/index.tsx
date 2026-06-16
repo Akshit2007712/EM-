@@ -35,7 +35,7 @@ function Index() {
 
   // Re-run reveal observer when content changes (admin edits)
   useEffect(() => {
-    const ev = new Event("rerun");
+    const ev = new Event("rerun-reveal");
     window.dispatchEvent(ev);
   }, [content]);
 

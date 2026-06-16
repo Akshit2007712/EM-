@@ -61,19 +61,15 @@ import { supabase } from "./supabase";
 export async function fetchFromSupabase(): Promise<SiteContent | null> {
   if (!supabase) return null;
   try {
-    const { data, error } = await supabase
-      .from('site_content')
-      .select('data')
-      .eq('id', 1)
-      .single();
+    const { data, error } = await supabase.from("site_content").select("data").eq("id", 1).single();
 
     if (error) {
-      if (error.code === 'PGRST116') return null; // Not found
+      if (error.code === "PGRST116") return null; // Not found
       throw error;
     }
     return data.data as SiteContent;
   } catch (err) {
-    console.error('Error fetching from Supabase:', err);
+    console.error("Error fetching from Supabase:", err);
     return null;
   }
 }
@@ -82,12 +78,12 @@ export async function saveToSupabase(content: SiteContent) {
   if (!supabase) return;
   try {
     const { error } = await supabase
-      .from('site_content')
+      .from("site_content")
       .upsert({ id: 1, data: content, updated_at: new Date() });
 
     if (error) throw error;
   } catch (err) {
-    console.error('Error saving to Supabase:', err);
+    console.error("Error saving to Supabase:", err);
   }
 }
 
@@ -118,10 +114,10 @@ export function loadContent(): SiteContent {
 export function saveContent(c: SiteContent) {
   if (!isBrowser()) return;
   localStorage.setItem(STORAGE_KEY, JSON.stringify(c));
-  
+
   // Sync to Supabase in background if configured
   saveToSupabase(c);
-  
+
   window.dispatchEvent(new Event("empirical:content-updated"));
 }
 

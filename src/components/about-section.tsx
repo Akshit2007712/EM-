@@ -19,12 +19,8 @@ export function AboutSection() {
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10 border-t border-border pt-10">
             <div className="reveal">
-              <div className="text-[10px] tracking-[0.22em] uppercase text-led mb-3">
-                Mission
-              </div>
-              <p className="text-muted-foreground leading-relaxed text-pretty">
-                {content.mission}
-              </p>
+              <div className="text-[10px] tracking-[0.22em] uppercase text-led mb-3">Mission</div>
+              <p className="text-muted-foreground leading-relaxed text-pretty">{content.mission}</p>
             </div>
             <div className="grid grid-cols-2 gap-6 reveal">
               <div>
@@ -53,7 +49,7 @@ export function AboutSection() {
 
 export function SiteFooter() {
   const [content] = useContent();
-  
+
   return (
     <footer className="border-t border-border mt-32">
       <div className="max-w-[1440px] mx-auto px-6 md:px-10 py-12 flex flex-col md:flex-row items-center justify-between gap-6 text-[10px] tracking-[0.22em] uppercase text-muted-foreground">
@@ -77,17 +73,32 @@ export function SiteFooter() {
         </div>
         <div className="flex flex-wrap items-center justify-center gap-6">
           {content.socialLinks?.instagram && (
-            <a href={content.socialLinks.instagram} target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">
+            <a
+              href={content.socialLinks.instagram}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-foreground transition-colors"
+            >
               Instagram
             </a>
           )}
           {content.socialLinks?.twitter && (
-            <a href={content.socialLinks.twitter} target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">
+            <a
+              href={content.socialLinks.twitter}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-foreground transition-colors"
+            >
               Twitter
             </a>
           )}
           {content.socialLinks?.linkedin && (
-            <a href={content.socialLinks.linkedin} target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">
+            <a
+              href={content.socialLinks.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-foreground transition-colors"
+            >
               LinkedIn
             </a>
           )}

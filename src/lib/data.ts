@@ -10,7 +10,7 @@ const P = [
   "1500648767791-00dcc994a43e", // 2
   "1438761681033-6461ffad8d80", // 3
   "1472099645785-5658abf4ff4e", // 4
-  "1544005313-94ddf0286df2",    // 5
+  "1544005313-94ddf0286df2", // 5
   "1519085360753-af0119f7cbe7", // 6
   "1573496359142-b8d87734a5a2", // 7
   "1487412720507-e7ab37603c6f", // 8
@@ -37,21 +37,57 @@ export const defaultContent: SiteContent = {
     instagram: "https://instagram.com",
     twitter: "https://twitter.com",
     linkedin: "https://linkedin.com",
-    email: "mailto:hello@empirical.org"
+    email: "mailto:hello@empirical.org",
   },
   mentors: [
-    { id: "m1", name: "Dr. Anika Verma", role: "Faculty Mentor", photo: portrait(P[0]), description: "Guides our research initiatives and inter-departmental projects." },
-    { id: "m2", name: "Prof. Rohan Mehta", role: "Senior Mentor", photo: portrait(P[8]), description: "20 years shaping student leaders across the institute." },
-    { id: "m3", name: "Dr. Sara Iqbal", role: "Mentor", photo: portrait(P[1]), description: "Champions inclusion and creative collaboration." },
+    {
+      id: "m1",
+      name: "Dr. Anika Verma",
+      role: "Faculty Mentor",
+      photo: portrait(P[0]),
+      description: "Guides our research initiatives and inter-departmental projects.",
+    },
+    {
+      id: "m2",
+      name: "Prof. Rohan Mehta",
+      role: "Senior Mentor",
+      photo: portrait(P[8]),
+      description: "20 years shaping student leaders across the institute.",
+    },
+    {
+      id: "m3",
+      name: "Dr. Sara Iqbal",
+      role: "Mentor",
+      photo: portrait(P[1]),
+      description: "Champions inclusion and creative collaboration.",
+    },
   ],
   faculty: [
     { id: "f1", name: "Prof. Vikram Shah", role: "Faculty Coordinator", photo: portrait(P[3]) },
     { id: "f2", name: "Dr. Maya Krishnan", role: "Faculty Coordinator", photo: portrait(P[2]) },
   ],
   leads: [
-    { id: "l1", name: "Aarav Kapoor", role: "President", photo: portrait(P[4]), description: "Leads vision, strategy, and society-wide initiatives." },
-    { id: "l2", name: "Ishita Roy", role: "Vice President", photo: portrait(P[1]), description: "Drives operations and inter-team coordination." },
-    { id: "l3", name: "Karan Singh", role: "General Secretary", photo: portrait(P[5]), description: "Owns logistics, partnerships, and member experience." },
+    {
+      id: "l1",
+      name: "Aarav Kapoor",
+      role: "President",
+      photo: portrait(P[4]),
+      description: "Leads vision, strategy, and society-wide initiatives.",
+    },
+    {
+      id: "l2",
+      name: "Ishita Roy",
+      role: "Vice President",
+      photo: portrait(P[1]),
+      description: "Drives operations and inter-team coordination.",
+    },
+    {
+      id: "l3",
+      name: "Karan Singh",
+      role: "General Secretary",
+      photo: portrait(P[5]),
+      description: "Owns logistics, partnerships, and member experience.",
+    },
   ],
   teams: [
     {
@@ -136,10 +172,7 @@ export const defaultContent: SiteContent = {
         "An intimate evening of original writing, performed by students and alumni. Three sets of poetry, two short stories, and an open mic that ran past midnight.",
       venue: "Open Lawn",
       cover: eventPhoto("1481627834876-b7833e8f5570"),
-      photos: [
-        eventPhoto("1481627834876-b7833e8f5570"),
-        eventPhoto("1524995997946-a1c2e315a42f"),
-      ],
+      photos: [eventPhoto("1481627834876-b7833e8f5570"), eventPhoto("1524995997946-a1c2e315a42f")],
     },
     {
       id: "e3",

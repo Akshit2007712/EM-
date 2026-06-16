@@ -1,12 +1,6 @@
 import type { Person } from "@/lib/store";
 
-export function PersonCard({
-  person,
-  index,
-}: {
-  person: Person;
-  index?: number;
-}) {
+export function PersonCard({ person, index }: { person: Person; index?: number }) {
   return (
     <div className="group bg-card border border-border p-2 transition-all duration-500 hover:border-led/40 hover:shadow-[0_8px_30px_rgba(0,200,255,0.06)]">
       <div className="bg-panel relative overflow-hidden mb-4 outline outline-1 outline-border -outline-offset-1">

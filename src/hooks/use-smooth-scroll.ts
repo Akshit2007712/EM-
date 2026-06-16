@@ -24,7 +24,11 @@ export function useSmoothScroll() {
 // Reveal-on-scroll observer for elements with .reveal class
 export function useReveal() {
   useEffect(() => {
-    const els = document.querySelectorAll<HTMLElement>(".reveal");
+    const scan = () => {
+      const els = document.querySelectorAll<HTMLElement>(".reveal:not(.in-view)");
+      els.forEach((el) => io.observe(el));
+    };
+
     const io = new IntersectionObserver(
       (entries) => {
         entries.forEach((e) => {
@@ -36,7 +40,16 @@ export function useReveal() {
       },
       { threshold: 0.12, rootMargin: "0px 0px -40px 0px" },
     );
-    els.forEach((el) => io.observe(el));
-    return () => io.disconnect();
+
+    scan();
+
+    window.addEventListener("empirical:content-updated", scan);
+    window.addEventListener("rerun-reveal", scan);
+
+    return () => {
+      io.disconnect();
+      window.removeEventListener("empirical:content-updated", scan);
+      window.removeEventListener("rerun-reveal", scan);
+    };
   }, []);
 }

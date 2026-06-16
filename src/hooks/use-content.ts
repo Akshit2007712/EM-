@@ -13,7 +13,7 @@ export function useContent(): [SiteContent, (c: SiteContent) => void] {
         setContent(remoteData);
       }
     };
-    
+
     syncWithSupabase();
 
     const handler = () => setContent(loadContent());

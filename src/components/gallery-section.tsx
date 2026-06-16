@@ -8,15 +8,11 @@ export function GallerySection() {
 
   const close = useCallback(() => setIndex(null), []);
   const next = useCallback(() => {
-    setIndex((i) =>
-      i === null ? null : (i + 1) % content.gallery.length,
-    );
+    setIndex((i) => (i === null ? null : (i + 1) % content.gallery.length));
   }, [content.gallery.length]);
   const prev = useCallback(() => {
     setIndex((i) =>
-      i === null
-        ? null
-        : (i - 1 + content.gallery.length) % content.gallery.length,
+      i === null ? null : (i - 1 + content.gallery.length) % content.gallery.length,
     );
   }, [content.gallery.length]);
 

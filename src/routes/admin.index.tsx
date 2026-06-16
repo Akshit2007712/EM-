@@ -14,7 +14,7 @@ import {
   ArrowLeft,
   ArrowRight,
   CheckCircle2,
-  UploadCloud
+  UploadCloud,
 } from "lucide-react";
 import {
   isAdmin,
@@ -76,11 +76,9 @@ function AdminDashboard() {
       <aside className="w-64 shrink-0 border-r border-border bg-panel min-h-dvh p-6 flex flex-col gap-2">
         <div className="flex items-center gap-3 mb-8 px-2">
           <span className="size-2 rounded-full bg-primary shadow-[0_0_8px_rgba(var(--primary),0.5)]" />
-          <span className="text-xs font-bold tracking-[0.22em] uppercase">
-            Admin Panel
-          </span>
+          <span className="text-xs font-bold tracking-[0.22em] uppercase">Admin Panel</span>
         </div>
-        
+
         <div className="space-y-1">
           {tabs.map((t) => (
             <button
@@ -152,13 +150,7 @@ function AdminDashboard() {
 
 /* ---------- Reusable inputs ---------- */
 
-function Field({
-  label,
-  children,
-}: {
-  label: string;
-  children: React.ReactNode;
-}) {
+function Field({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <label className="block">
       <span className="text-[11px] font-semibold tracking-[0.1em] uppercase text-muted-foreground mb-2 block">
@@ -172,13 +164,7 @@ function Field({
 const inputCls =
   "w-full bg-background border border-border px-3.5 py-2.5 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary/20 transition-all rounded-lg shadow-sm placeholder:text-muted-foreground/50";
 
-function Card({
-  children,
-  className = "",
-}: {
-  children: React.ReactNode;
-  className?: string;
-}) {
+function Card({ children, className = "" }: { children: React.ReactNode; className?: string }) {
   return (
     <div className={`bg-card border border-border shadow-sm rounded-xl p-6 ${className}`}>
       {children}
@@ -186,7 +172,13 @@ function Card({
   );
 }
 
-function ImageUpload({ onChange, label = "Upload Image" }: { onChange: (base64: string) => void, label?: string }) {
+function ImageUpload({
+  onChange,
+  label = "Upload Image",
+}: {
+  onChange: (base64: string) => void;
+  label?: string;
+}) {
   const handleFile = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
@@ -222,13 +214,7 @@ function ImageUpload({ onChange, label = "Upload Image" }: { onChange: (base64: 
 
 /* ---------- Site Tab ---------- */
 
-function SiteTab({
-  draft,
-  persist,
-}: {
-  draft: SiteContent;
-  persist: (c: SiteContent) => void;
-}) {
+function SiteTab({ draft, persist }: { draft: SiteContent; persist: (c: SiteContent) => void }) {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
       <div className="space-y-6">
@@ -239,18 +225,14 @@ function SiteTab({
               <input
                 className={inputCls}
                 value={draft.heroTagline}
-                onChange={(e) =>
-                  persist({ ...draft, heroTagline: e.target.value })
-                }
+                onChange={(e) => persist({ ...draft, heroTagline: e.target.value })}
               />
             </Field>
             <Field label="Hero subtitle">
               <textarea
                 className={`${inputCls} min-h-[90px] resize-y`}
                 value={draft.heroSubtitle}
-                onChange={(e) =>
-                  persist({ ...draft, heroSubtitle: e.target.value })
-                }
+                onChange={(e) => persist({ ...draft, heroSubtitle: e.target.value })}
               />
             </Field>
             <Field label="About paragraph">
@@ -354,11 +336,7 @@ function PersonEditor({
       <div className="flex gap-4">
         <div className="w-24 shrink-0 aspect-[3/4] bg-panel border border-border overflow-hidden rounded-md">
           {person.photo && (
-            <img
-              src={person.photo}
-              alt={person.name}
-              className="w-full h-full object-cover"
-            />
+            <img src={person.photo} alt={person.name} className="w-full h-full object-cover" />
           )}
         </div>
         <div className="flex-1 grid grid-cols-1 md:grid-cols-2 gap-3">
@@ -384,16 +362,17 @@ function PersonEditor({
                 placeholder="https://..."
                 onChange={(e) => onChange({ ...person, photo: e.target.value })}
               />
-              <ImageUpload onChange={(b64) => onChange({ ...person, photo: b64 })} label="Upload Photo" />
+              <ImageUpload
+                onChange={(b64) => onChange({ ...person, photo: b64 })}
+                label="Upload Photo"
+              />
             </div>
           </Field>
           <Field label="Description">
             <input
               className={inputCls}
               value={person.description ?? ""}
-              onChange={(e) =>
-                onChange({ ...person, description: e.target.value })
-              }
+              onChange={(e) => onChange({ ...person, description: e.target.value })}
             />
           </Field>
         </div>
@@ -420,9 +399,7 @@ function PeopleGroup({
   return (
     <section className="space-y-4">
       <div className="flex items-center justify-between">
-        <h2 className="text-sm font-semibold tracking-[0.2em] uppercase">
-          {title}
-        </h2>
+        <h2 className="text-sm font-semibold tracking-[0.2em] uppercase">{title}</h2>
         <button
           onClick={() =>
             onChange([
@@ -431,7 +408,8 @@ function PeopleGroup({
                 id: uid(),
                 name: "New person",
                 role: "Role",
-                photo: "https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=600&h=800&fit=crop&q=80",
+                photo:
+                  "https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=600&h=800&fit=crop&q=80",
                 description: "",
               },
             ])
@@ -459,13 +437,7 @@ function PeopleGroup({
   );
 }
 
-function PeopleTab({
-  draft,
-  persist,
-}: {
-  draft: SiteContent;
-  persist: (c: SiteContent) => void;
-}) {
+function PeopleTab({ draft, persist }: { draft: SiteContent; persist: (c: SiteContent) => void }) {
   return (
     <div className="space-y-10">
       <PeopleGroup
@@ -489,39 +461,36 @@ function PeopleTab({
 
 /* ---------- Teams Tab ---------- */
 
-function TeamsTab({
-  draft,
-  persist,
-}: {
-  draft: SiteContent;
-  persist: (c: SiteContent) => void;
-}) {
+function TeamsTab({ draft, persist }: { draft: SiteContent; persist: (c: SiteContent) => void }) {
   const setTeams = (teams: Team[]) => persist({ ...draft, teams });
   return (
     <div className="space-y-6">
       <div className="flex justify-end">
-          <button
-            onClick={() =>
-              setTeams([
-                ...draft.teams,
-                {
-                  id: uid(),
-                  name: "New Team",
-                  leads: [{
+        <button
+          onClick={() =>
+            setTeams([
+              ...draft.teams,
+              {
+                id: uid(),
+                name: "New Team",
+                leads: [
+                  {
                     id: uid(),
                     name: "Team Lead",
                     role: "Lead",
-                    photo: "https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=600&h=800&fit=crop&q=80",
-                  }],
-                  members: [],
-                },
-              ])
-            }
-            className="flex items-center gap-1.5 text-xs px-3 py-1.5 bg-primary text-primary-foreground font-semibold rounded-lg hover:opacity-90 shadow-sm transition-all"
-          >
-            <Plus className="size-3.5" />
-            Add Team
-          </button>
+                    photo:
+                      "https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=600&h=800&fit=crop&q=80",
+                  },
+                ],
+                members: [],
+              },
+            ])
+          }
+          className="flex items-center gap-1.5 text-xs px-3 py-1.5 bg-primary text-primary-foreground font-semibold rounded-lg hover:opacity-90 shadow-sm transition-all"
+        >
+          <Plus className="size-3.5" />
+          Add Team
+        </button>
       </div>
       {draft.teams.map((team, ti) => (
         <Card key={team.id} className="space-y-4">
@@ -559,7 +528,8 @@ function TeamsTab({
                     id: uid(),
                     name: "New Lead",
                     role: "Lead",
-                    photo: "https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=600&h=800&fit=crop&q=80",
+                    photo:
+                      "https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=600&h=800&fit=crop&q=80",
                   });
                   copy[ti] = { ...team, leads };
                   setTeams(copy);
@@ -609,7 +579,8 @@ function TeamsTab({
                         id: uid(),
                         name: "New member",
                         role: "Member",
-                        photo: "https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=600&h=800&fit=crop&q=80",
+                        photo:
+                          "https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=600&h=800&fit=crop&q=80",
                       },
                     ],
                   };
@@ -653,13 +624,7 @@ function TeamsTab({
 
 /* ---------- Events Tab ---------- */
 
-function EventsTab({
-  draft,
-  persist,
-}: {
-  draft: SiteContent;
-  persist: (c: SiteContent) => void;
-}) {
+function EventsTab({ draft, persist }: { draft: SiteContent; persist: (c: SiteContent) => void }) {
   const setEvents = (events: EventItem[]) => persist({ ...draft, events });
   return (
     <div className="space-y-6">
@@ -803,16 +768,9 @@ function EventsTab({
 
 /* ---------- Gallery Tab ---------- */
 
-function GalleryTab({
-  draft,
-  persist,
-}: {
-  draft: SiteContent;
-  persist: (c: SiteContent) => void;
-}) {
+function GalleryTab({ draft, persist }: { draft: SiteContent; persist: (c: SiteContent) => void }) {
   const [url, setUrl] = useState("");
-  const setGallery = (gallery: GalleryImage[]) =>
-    persist({ ...draft, gallery });
+  const setGallery = (gallery: GalleryImage[]) => persist({ ...draft, gallery });
 
   const move = (i: number, dir: -1 | 1) => {
     const j = i + dir;
@@ -844,7 +802,9 @@ function GalleryTab({
               + Add URL
             </button>
           </div>
-          <div className="text-muted-foreground text-xs font-medium uppercase tracking-wider">OR</div>
+          <div className="text-muted-foreground text-xs font-medium uppercase tracking-wider">
+            OR
+          </div>
           <div className="w-full md:w-48">
             <ImageUpload
               label="Upload from PC"
@@ -857,17 +817,9 @@ function GalleryTab({
       </Card>
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
         {draft.gallery.map((g, i) => (
-          <div
-            key={g.id}
-            className="bg-card border border-border rounded-md overflow-hidden"
-          >
+          <div key={g.id} className="bg-card border border-border rounded-md overflow-hidden">
             <div className="aspect-square bg-panel">
-              <img
-                src={g.url}
-                alt=""
-                className="w-full h-full object-cover"
-                loading="lazy"
-              />
+              <img src={g.url} alt="" className="w-full h-full object-cover" loading="lazy" />
             </div>
             <div className="p-2 flex items-center justify-between gap-1">
               <div className="flex gap-1">
@@ -887,9 +839,7 @@ function GalleryTab({
                 </button>
               </div>
               <button
-                onClick={() =>
-                  setGallery(draft.gallery.filter((_, j) => j !== i))
-                }
+                onClick={() => setGallery(draft.gallery.filter((_, j) => j !== i))}
                 className="text-xs px-2 py-1 border border-border rounded hover:bg-destructive hover:text-destructive-foreground transition-colors"
               >
                 Delete

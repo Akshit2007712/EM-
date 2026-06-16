@@ -32,11 +32,7 @@ export function Hero({ tagline, subtitle }: Props) {
   return (
     <section className="relative min-h-dvh flex flex-col justify-center items-center px-6 pt-32 pb-16 text-center overflow-hidden">
       {/* Parallax background image */}
-      <div
-        ref={imgRef}
-        className="absolute inset-0 -z-20 will-change-transform"
-        aria-hidden
-      >
+      <div ref={imgRef} className="absolute inset-0 -z-20 will-change-transform" aria-hidden>
         <img
           src={heroImg}
           alt=""
@@ -50,8 +46,6 @@ export function Hero({ tagline, subtitle }: Props) {
       <div className="absolute inset-0 -z-10 bg-gradient-to-b from-background/60 via-background/85 to-background" />
       <div className="absolute top-0 inset-x-0 h-[800px] hero-radial -z-10 pointer-events-none" />
       <div className="absolute top-[72px] inset-x-0 h-px led-line opacity-50" />
-
-
 
       <h1 className="text-5xl sm:text-6xl md:text-8xl font-semibold tracking-tighter text-balance mb-8 max-w-[16ch] reveal">
         {firstHalf}{" "}

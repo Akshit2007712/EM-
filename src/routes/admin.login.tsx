@@ -41,9 +41,7 @@ function AdminLogin() {
             <span className="size-1.5 rounded-full bg-led led-dot" />
             Empirical · Admin
           </div>
-          <h1 className="mt-4 text-2xl font-semibold tracking-tight">
-            Restricted access
-          </h1>
+          <h1 className="mt-4 text-2xl font-semibold tracking-tight">Restricted access</h1>
           <p className="mt-2 text-sm text-muted-foreground">
             Enter the admin password to manage site content.
           </p>
@@ -63,9 +61,7 @@ function AdminLogin() {
             className="mt-2 w-full bg-background border border-border px-3 py-2.5 text-sm outline-none focus:border-led transition-colors"
             placeholder="••••••••"
           />
-          {err && (
-            <p className="mt-2 text-xs text-destructive">{err}</p>
-          )}
+          {err && <p className="mt-2 text-xs text-destructive">{err}</p>}
           <p className="mt-3 text-[10px] text-muted-foreground/70">
             Hint (demo): <span className="font-mono">empirical2024</span>
           </p>

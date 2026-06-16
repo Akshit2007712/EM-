@@ -3,13 +3,7 @@ import { useContent } from "@/hooks/use-content";
 import { SectionHeading } from "./section-heading";
 import type { EventItem } from "@/lib/store";
 
-function EventModal({
-  event,
-  onClose,
-}: {
-  event: EventItem;
-  onClose: () => void;
-}) {
+function EventModal({ event, onClose }: { event: EventItem; onClose: () => void }) {
   return (
     <div
       className="fixed inset-0 z-[100] bg-background/80 backdrop-blur-md flex items-start md:items-center justify-center p-4 md:p-10 overflow-y-auto"
@@ -27,11 +21,7 @@ function EventModal({
           ✕
         </button>
         <div className="aspect-[16/9] overflow-hidden bg-panel">
-          <img
-            src={event.cover}
-            alt={event.title}
-            className="w-full h-full object-cover"
-          />
+          <img src={event.cover} alt={event.title} className="w-full h-full object-cover" />
         </div>
         <div className="p-6 md:p-10">
           <div className="text-[10px] tracking-[0.22em] uppercase text-led mb-3">
@@ -42,12 +32,8 @@ function EventModal({
             })}{" "}
             · {event.venue}
           </div>
-          <h3 className="text-3xl md:text-4xl font-semibold tracking-tight mb-4">
-            {event.title}
-          </h3>
-          <p className="text-muted-foreground leading-relaxed text-pretty">
-            {event.description}
-          </p>
+          <h3 className="text-3xl md:text-4xl font-semibold tracking-tight mb-4">{event.title}</h3>
+          <p className="text-muted-foreground leading-relaxed text-pretty">{event.description}</p>
           {event.photos.length > 1 && (
             <div className="mt-8 grid grid-cols-2 md:grid-cols-3 gap-3">
               {event.photos.map((p, i) => (

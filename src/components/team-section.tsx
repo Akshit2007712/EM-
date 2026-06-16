@@ -12,9 +12,7 @@ function TeamBlock({ team }: { team: Team }) {
   return (
     <div className="border-t border-border pt-12 mt-12 first:border-t-0 first:pt-0 first:mt-0">
       <div className="flex items-end justify-between mb-8 reveal">
-        <h3 className="text-2xl md:text-3xl font-semibold tracking-tight">
-          {team.name}
-        </h3>
+        <h3 className="text-2xl md:text-3xl font-semibold tracking-tight">{team.name}</h3>
         <span className="text-[10px] tracking-[0.2em] uppercase text-muted-foreground">
           {members.length + 1} members
         </span>
@@ -25,7 +23,7 @@ function TeamBlock({ team }: { team: Team }) {
             <PersonCard key={l.id} person={l} index={i} />
           ))}
         </div>
-        
+
         {hasMembers && (
           <div className="md:col-span-3 flex flex-col items-start gap-6">
             {showMembers ? (
@@ -35,7 +33,7 @@ function TeamBlock({ team }: { team: Team }) {
                 ))}
               </div>
             ) : null}
-            
+
             <button
               onClick={() => setShowMembers(!showMembers)}
               className="text-xs font-semibold tracking-[0.1em] uppercase px-5 py-2.5 border border-border bg-card hover:bg-accent text-foreground transition-all rounded-lg shadow-sm"
@@ -67,9 +65,7 @@ export function TeamSection() {
         {/* Mentors */}
         <div className="mb-20">
           <div className="flex items-end justify-between mb-8 reveal">
-            <h3 className="text-2xl md:text-3xl font-semibold tracking-tight">
-              Mentors
-            </h3>
+            <h3 className="text-2xl md:text-3xl font-semibold tracking-tight">Mentors</h3>
             <span className="text-[10px] tracking-[0.2em] uppercase text-muted-foreground">
               {content.mentors.length} guides
             </span>
@@ -98,9 +94,7 @@ export function TeamSection() {
         {/* Leads */}
         <div className="mb-24">
           <div className="flex items-end justify-between mb-8 reveal">
-            <h3 className="text-2xl md:text-3xl font-semibold tracking-tight">
-              Leads
-            </h3>
+            <h3 className="text-2xl md:text-3xl font-semibold tracking-tight">Leads</h3>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
             {content.leads.map((p, i) => (
