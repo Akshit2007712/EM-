@@ -1,5 +1,10 @@
-// Local data store for The Empirical Society
-// Persisted in localStorage; admin panel writes here, frontend reads.
+// Data store for The Empirical Society
+// Supabase is the source of truth; localStorage acts as a read cache.
+
+import { supabase, IMAGES_BUCKET } from "./supabase";
+import { defaultContent } from "./data";
+
+/* ---------- Types ---------- */
 
 export type Person = {
   id: string;
@@ -53,46 +58,11 @@ export type SiteContent = {
   gallery: GalleryImage[];
 };
 
+/* ---------- Constants ---------- */
+
 const STORAGE_KEY = "empirical-society-content-v1";
 
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3001";
-const ADMIN_KEY = "empirical-admin-token";
-
-import { defaultContent } from "./data";
-
-export async function fetchFromSupabase(): Promise<SiteContent | null> {
-  try {
-    const res = await fetch(`${API_URL}/api/content`);
-    if (!res.ok) {
-      if (res.status === 404) return null;
-      throw new Error(`HTTP error ${res.status}`);
-    }
-    const data = await res.json();
-    return data.content as SiteContent;
-  } catch (err) {
-    console.error("Error fetching from API:", err);
-    return null;
-  }
-}
-
-export async function saveToSupabase(content: SiteContent) {
-  try {
-    const token = localStorage.getItem(ADMIN_KEY);
-    if (!token) return;
-    const res = await fetch(`${API_URL}/api/content`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify({ content }),
-    });
-
-    if (!res.ok) throw new Error(`HTTP error ${res.status}`);
-  } catch (err) {
-    console.error("Error saving to API:", err);
-  }
-}
+/* ---------- localStorage helpers ---------- */
 
 function isBrowser() {
   return typeof window !== "undefined";
@@ -104,11 +74,10 @@ export function loadContent(): SiteContent {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (!raw) return defaultContent;
     const parsed = { ...defaultContent, ...JSON.parse(raw) };
+    // Back-compat: normalise legacy `lead` → `leads` array
     if (parsed.teams) {
       parsed.teams = parsed.teams.map((t: Team) => {
-        if (t.lead && !t.leads) {
-          t.leads = [t.lead];
-        }
+        if (t.lead && !t.leads) t.leads = [t.lead];
         return t;
       });
     }
@@ -118,51 +87,133 @@ export function loadContent(): SiteContent {
   }
 }
 
-export function saveContent(c: SiteContent): { ok: boolean; error?: string } {
-  if (!isBrowser()) return { ok: false, error: "Not in browser" };
+/** Write to localStorage (used as a read-cache only). */
+function cacheContent(c: SiteContent) {
+  if (!isBrowser()) return;
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(c));
-  } catch (err: unknown) {
-    // Typically a QuotaExceededError — images are too large
-    const msg =
-      err instanceof Error ? err.message : "localStorage quota exceeded";
-    console.error("saveContent failed:", msg);
-    return { ok: false, error: "Storage full – try removing some images or using smaller photos." };
+    window.dispatchEvent(new Event("empirical:content-updated"));
+  } catch {
+    // Quota exceeded – cache write is best-effort
   }
-
-  // Sync to backend API in background (best-effort, won't block save)
-  saveToSupabase(c);
-
-  window.dispatchEvent(new Event("empirical:content-updated"));
-  return { ok: true };
 }
+
+/* ---------- Supabase helpers ---------- */
+
+/** Fetch the latest content from Supabase. Returns null if unavailable. */
+export async function fetchFromSupabase(): Promise<SiteContent | null> {
+  if (!supabase) return null;
+  try {
+    const { data, error } = await supabase
+      .from("site_content")
+      .select("data")
+      .eq("id", "main")
+      .single();
+
+    if (error || !data?.data) return null;
+    return { ...defaultContent, ...data.data } as SiteContent;
+  } catch (err) {
+    console.error("[store] fetchFromSupabase:", err);
+    return null;
+  }
+}
+
+/** Upsert content to Supabase. Throws on failure so callers can surface errors. */
+export async function saveToSupabase(content: SiteContent): Promise<void> {
+  if (!supabase) return;
+  const { error } = await supabase.from("site_content").upsert({
+    id: "main",
+    data: content,
+    updated_at: new Date().toISOString(),
+  });
+  if (error) throw new Error(error.message);
+}
+
+/**
+ * Upload an image Blob to Supabase Storage.
+ * Returns the permanent public URL on success, or null on failure.
+ */
+export async function uploadImage(blob: Blob): Promise<string | null> {
+  if (!supabase) return null;
+  try {
+    const ext = blob.type === "image/png" ? "png" : "jpg";
+    const path = `${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`;
+
+    const { data, error } = await supabase.storage
+      .from(IMAGES_BUCKET)
+      .upload(path, blob, { contentType: blob.type, upsert: false });
+
+    if (error) throw new Error(error.message);
+
+    const {
+      data: { publicUrl },
+    } = supabase.storage.from(IMAGES_BUCKET).getPublicUrl(data.path);
+
+    return publicUrl;
+  } catch (err) {
+    console.error("[store] uploadImage:", err);
+    return null;
+  }
+}
+
+/* ---------- Public save API ---------- */
+
+/**
+ * Save content to Supabase (primary) and update the localStorage cache.
+ * This is the main save function used by the admin panel.
+ */
+export async function saveContent(
+  c: SiteContent
+): Promise<{ ok: boolean; error?: string }> {
+  if (!isBrowser()) return { ok: false, error: "Not in browser" };
+  try {
+    await saveToSupabase(c);
+    cacheContent(c);
+    return { ok: true };
+  } catch (err) {
+    // Supabase failed — try to at least cache locally
+    cacheContent(c);
+    const msg =
+      err instanceof Error ? err.message : "Failed to save to database";
+    console.error("[store] saveContent:", msg);
+    return {
+      ok: false,
+      error: supabase
+        ? `Database error: ${msg}`
+        : "Database not configured — saved locally only.",
+    };
+  }
+}
+
+/* ---------- Reset ---------- */
 
 export async function resetContent() {
   if (!isBrowser()) return;
   localStorage.removeItem(STORAGE_KEY);
-  try {
-    const token = localStorage.getItem(ADMIN_KEY);
-    if (token) {
-      await fetch(`${API_URL}/api/content`, {
-        method: "DELETE",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+  if (supabase) {
+    try {
+      await supabase
+        .from("site_content")
+        .upsert({ id: "main", data: defaultContent });
+    } catch {
+      // best-effort
     }
-  } catch (err) {
-    console.error("Error resetting content on API:", err);
   }
   window.dispatchEvent(new Event("empirical:content-updated"));
 }
 
+/* ---------- Auth helpers (local, no backend needed) ---------- */
+
+const ADMIN_KEY = "empirical-admin-token";
 const ADMIN_PASSWORD = "empirical2024";
 
-/** Mint a simple local session token valid for 8 hours. */
 function mintLocalToken(): string {
   const expiry = Math.floor(Date.now() / 1000) + 8 * 3600;
   const header = btoa(JSON.stringify({ alg: "local" })).replace(/=/g, "");
-  const body = btoa(JSON.stringify({ role: "admin", exp: expiry })).replace(/=/g, "");
+  const body = btoa(JSON.stringify({ role: "admin", exp: expiry })).replace(
+    /=/g,
+    ""
+  );
   return `${header}.${body}.local`;
 }
 
@@ -173,7 +224,6 @@ export function isAdmin(): boolean {
   try {
     const parts = token.split(".");
     if (parts.length < 2) return false;
-    // Restore base64 padding before decoding
     const padded = parts[1].replace(/-/g, "+").replace(/_/g, "/");
     const padding = (4 - (padded.length % 4)) % 4;
     const decoded = atob(padded + "=".repeat(padding));
@@ -188,7 +238,6 @@ export function isAdmin(): boolean {
   }
 }
 
-/** Login is entirely local — no backend needed. */
 export async function loginAdmin(pw: string): Promise<boolean> {
   if (pw !== ADMIN_PASSWORD) return false;
   localStorage.setItem(ADMIN_KEY, mintLocalToken());

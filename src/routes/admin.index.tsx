@@ -1,5 +1,5 @@
 import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   Settings,
   Users,
@@ -20,6 +20,7 @@ import {
   isAdmin,
   logoutAdmin,
   saveContent,
+  uploadImage,
   resetContent,
   uid,
   type Person,
@@ -28,6 +29,7 @@ import {
   type Team,
   type SiteContent,
 } from "@/lib/store";
+import { supabase } from "@/lib/supabase";
 import { useContent } from "@/hooks/use-content";
 
 export const Route = createFileRoute("/admin/")({
@@ -50,27 +52,31 @@ function AdminDashboard() {
   const [draft, setDraft] = useState<SiteContent>(content);
   const [saveStatus, setSaveStatus] = useState<SaveStatus>("idle");
   const [saveError, setSaveError] = useState("");
+  const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     if (!isAdmin()) navigate({ to: "/admin/login" });
   }, [navigate]);
 
-  // Only sync draft when content changes from OUTSIDE (e.g. storage event)
-  // We intentionally do NOT sync draft here to avoid overwriting mid-edit state
-
+  // Debounced persist: UI updates instantly; Supabase write fires 1.5 s after
+  // the user stops making changes (prevents calling the DB on every keystroke).
   const persist = (next: SiteContent) => {
     setDraft(next);
+    setContent(next);
     setSaveStatus("saving");
-    const result = saveContent(next);
-    if (result.ok) {
-      setContent(next);
-      setSaveStatus("saved");
-      setSaveError("");
-      setTimeout(() => setSaveStatus("idle"), 2200);
-    } else {
-      setSaveStatus("error");
-      setSaveError(result.error ?? "Unknown error");
-    }
+
+    if (debounceRef.current) clearTimeout(debounceRef.current);
+    debounceRef.current = setTimeout(async () => {
+      const result = await saveContent(next);
+      if (result.ok) {
+        setSaveStatus("saved");
+        setSaveError("");
+        setTimeout(() => setSaveStatus("idle"), 2200);
+      } else {
+        setSaveStatus("error");
+        setSaveError(result.error ?? "Unknown error");
+      }
+    }, 1500);
   };
 
   const tabs: { id: Tab; label: string; icon: React.ReactNode }[] = [
@@ -207,28 +213,53 @@ function ImageUpload({
   onChange,
   label = "Upload Image",
 }: {
-  onChange: (base64: string) => void;
+  onChange: (url: string) => void;
   label?: string;
 }) {
+  const [uploading, setUploading] = useState(false);
+  const [uploadError, setUploadError] = useState("");
+
   const handleFile = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
+    setUploading(true);
+    setUploadError("");
 
     const reader = new FileReader();
     reader.onload = (event) => {
       const img = new Image();
       img.onload = () => {
-        // Compress image to fit in localStorage
+        // Compress image before upload
         const canvas = document.createElement("canvas");
-        // Keep images small to stay under the 5 MB localStorage limit
-        const MAX_WIDTH = 500;
+        const MAX_WIDTH = 1200; // Higher quality now — no localStorage limit
         const scale = Math.min(1, MAX_WIDTH / img.width);
         canvas.width = Math.round(img.width * scale);
         canvas.height = Math.round(img.height * scale);
         const ctx = canvas.getContext("2d");
         ctx?.drawImage(img, 0, 0, canvas.width, canvas.height);
-        const dataUrl = canvas.toDataURL("image/jpeg", 0.65);
-        onChange(dataUrl);
+
+        canvas.toBlob(
+          async (blob) => {
+            if (!blob) { setUploading(false); return; }
+
+            if (supabase) {
+              // Upload to Supabase Storage → permanent public URL
+              const url = await uploadImage(blob);
+              if (url) {
+                onChange(url);
+              } else {
+                setUploadError("Upload failed. Check your Supabase bucket settings.");
+              }
+            } else {
+              // Supabase not configured — fall back to base64 (localStorage)
+              const dataUrl = canvas.toDataURL("image/jpeg", 0.65);
+              onChange(dataUrl);
+            }
+            setUploading(false);
+          },
+          "image/jpeg",
+          0.88
+        );
       };
       img.src = event.target?.result as string;
     };
@@ -236,11 +267,26 @@ function ImageUpload({
   };
 
   return (
-    <label className="relative flex items-center justify-center gap-2 w-full bg-primary/5 hover:bg-primary/10 border border-primary/20 text-primary px-3.5 py-2.5 text-sm font-medium rounded-lg cursor-pointer transition-colors shadow-sm">
-      <UploadCloud className="size-4" />
-      {label}
-      <input type="file" accept="image/*" className="hidden" onChange={handleFile} />
-    </label>
+    <div className="space-y-1.5">
+      <label
+        className={`relative flex items-center justify-center gap-2 w-full bg-primary/5 hover:bg-primary/10 border border-primary/20 text-primary px-3.5 py-2.5 text-sm font-medium rounded-lg transition-colors shadow-sm ${
+          uploading ? "opacity-60 cursor-not-allowed" : "cursor-pointer"
+        }`}
+      >
+        <UploadCloud className={`size-4 ${uploading ? "animate-bounce" : ""}`} />
+        {uploading ? "Uploading to cloud…" : label}
+        <input
+          type="file"
+          accept="image/*"
+          className="hidden"
+          onChange={handleFile}
+          disabled={uploading}
+        />
+      </label>
+      {uploadError && (
+        <p className="text-xs text-red-500">{uploadError}</p>
+      )}
+    </div>
   );
 }
 
