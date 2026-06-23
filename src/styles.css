@@ -4,7 +4,7 @@
 
 @custom-variant dark (&:is(.dark *));
 
-/* Empirical Society — Obsidian LED design system */
+/* The Empirical Society — Obsidian LED design system */
 
 @theme inline {
   --font-sans: "Instrument Sans", system-ui, sans-serif;
@@ -117,28 +117,33 @@
   --hairline: oklch(1 0 0 / 6%);
 }
 
-/* Light mode for admin panel */
+/* Light mode — full public site */
 .theme-light {
-  --background: oklch(0.99 0.003 250);
-  --foreground: oklch(0.15 0.01 260);
+  --background: oklch(0.97 0.005 250);
+  --foreground: oklch(0.12 0.015 260);
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.15 0.01 260);
+  --card-foreground: oklch(0.12 0.015 260);
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.15 0.01 260);
-  --primary: oklch(0.45 0.15 260);
+  --popover-foreground: oklch(0.12 0.015 260);
+  --primary: oklch(0.45 0.2 265);
   --primary-foreground: oklch(0.99 0 0);
-  --secondary: oklch(0.96 0.005 260);
-  --secondary-foreground: oklch(0.15 0.01 260);
-  --muted: oklch(0.96 0.005 260);
-  --muted-foreground: oklch(0.5 0.015 260);
-  --accent: oklch(0.94 0.01 260);
-  --accent-foreground: oklch(0.15 0.01 260);
-  --border: oklch(0.9 0.005 260);
-  --input: oklch(0.9 0.005 260);
-  --ring: oklch(0.45 0.15 260);
-  --hairline: oklch(0.88 0.005 260);
-  --panel: oklch(0.97 0.005 260);
-  --glass: oklch(1 0 0);
+  --secondary: oklch(0.93 0.01 260);
+  --secondary-foreground: oklch(0.12 0.015 260);
+  --muted: oklch(0.93 0.008 260);
+  --muted-foreground: oklch(0.45 0.02 260);
+  --accent: oklch(0.9 0.015 260);
+  --accent-foreground: oklch(0.12 0.015 260);
+  --destructive: oklch(0.62 0.22 25);
+  --destructive-foreground: oklch(0.99 0 0);
+  --border: oklch(0.82 0.01 260);
+  --input: oklch(0.88 0.008 260);
+  --ring: oklch(0.45 0.2 265);
+  --hairline: oklch(0.85 0.008 260);
+  --panel: oklch(0.95 0.006 260);
+  --glass: oklch(1 0 0 / 80%);
+  /* Override LED to deep indigo/violet so it's visible on light bg */
+  --led: oklch(0.45 0.22 265);
+  --led-soft: oklch(0.65 0.15 265);
 }
 
 @layer base {
@@ -154,10 +159,36 @@
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
+    transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease;
+  }
+  
+  /* Smooth theme transition for elements that change colors */
+  .bg-background,
+  .bg-card,
+  .bg-panel,
+  .text-foreground,
+  .text-muted-foreground,
+  .border-border,
+  header,
+  footer,
+  section,
+  button,
+  a,
+  input,
+  textarea,
+  h1, h2, h3, h4, h5, h6,
+  p,
+  span {
+    transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
   }
   ::selection {
     background: var(--led);
-    color: oklch(0.13 0.01 260);
+    color: oklch(0.99 0 0);
+  }
+  /* Light mode selection — use led as highlight, white text */
+  .theme-light ::selection {
+    background: var(--led);
+    color: oklch(0.99 0 0);
   }
 }
 

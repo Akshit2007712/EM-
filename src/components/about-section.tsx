@@ -55,12 +55,9 @@ export function SiteFooter() {
       <div className="max-w-[1440px] mx-auto px-6 md:px-10 py-12 flex flex-col md:flex-row items-center justify-between gap-6 text-[10px] tracking-[0.22em] uppercase text-muted-foreground">
         <div className="flex items-center gap-3">
           <span className="size-1.5 rounded-full bg-led led-dot" />
-          Empirical Society © {new Date().getFullYear()}
+          The Empirical Society © {new Date().getFullYear()}
         </div>
         <div className="flex flex-wrap items-center justify-center gap-6">
-          <a href="#about" className="hover:text-foreground transition-colors">
-            About
-          </a>
           <a href="#team" className="hover:text-foreground transition-colors">
             Team
           </a>

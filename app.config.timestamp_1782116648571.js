@@ -1,15 +1,18 @@
+// app.config.ts
 import { defineConfig } from "@tanstack/react-start/config";
 import tsconfigPaths from "vite-tsconfig-paths";
 import tailwindcss from "@tailwindcss/vite";
-
-export default defineConfig({
+var app_config_default = defineConfig({
   server: {
-    preset: "vercel",
+    preset: "vercel"
   },
   vite: {
     plugins: [
       tsconfigPaths(),
-      tailwindcss(),
-    ],
-  },
+      tailwindcss()
+    ]
+  }
 });
+export {
+  app_config_default as default
+};

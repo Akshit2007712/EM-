@@ -26,11 +26,11 @@ const galleryPhoto = (seed: string) =>
   `https://images.unsplash.com/photo-${seed}?w=800&h=800&fit=crop&q=80`;
 
 export const defaultContent: SiteContent = {
-  heroTagline: "Empowering Minds, Building Futures.",
+  heroTagline: "Knowledge in Action, Innovation in Motion.",
   heroSubtitle:
-    "Empirical Society is a collective of curious students dedicated to rigorous inquiry, creative thought, and meaningful impact across our campus and beyond.",
+    "The Empirical Society is a collective of curious students dedicated to rigorous inquiry, creative thought, and meaningful impact across our campus and beyond.",
   about:
-    "Founded as a home for thinkers, makers, and storytellers, Empirical Society brings together students from every discipline. We host events, run creative initiatives, publish writing, and build a culture where curiosity is the highest currency.",
+    "Founded as a home for thinkers, makers, and storytellers, The Empirical Society brings together students from every discipline. We host events, run creative initiatives, publish writing, and build a culture where curiosity is the highest currency.",
   mission:
     "To cultivate a generation of curious, capable, and compassionate leaders by fostering an environment of inquiry, collaboration, and creative expression.",
   socialLinks: {

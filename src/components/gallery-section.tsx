@@ -32,7 +32,7 @@ export function GallerySection() {
       <div className="max-w-[1440px] mx-auto px-6 md:px-10 py-24 md:py-32">
         <div className="mb-16 reveal">
           <SectionHeading number="06" label="Gallery" />
-          <h2 className="mt-6 text-4xl md:text-6xl font-semibold tracking-tight max-w-[20ch] text-balance">
+          <h2 className="mt-6 text-3xl md:text-6xl font-semibold tracking-tight max-w-[20ch] text-balance">
             Moments from the field.
           </h2>
         </div>

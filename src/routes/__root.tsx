@@ -29,14 +29,13 @@ export const Route = createRootRoute({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { title: "The Empirical Society" },
+      { name: "description", content: "A community exploring empirical and scientific views of society." },
+      { name: "author", content: "The Empirical Society" },
+      { property: "og:title", content: "The Empirical Society" },
+      { property: "og:description", content: "A community exploring empirical and scientific views of society." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
-      { name: "twitter:site", content: "@Lovable" },
     ],
     links: [
       {
@@ -55,6 +54,22 @@ function RootShell({ children }: { children: React.ReactNode }) {
     <html lang="en">
       <head>
         <HeadContent />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                try {
+                  var theme = localStorage.getItem('empirical-society-theme');
+                  if (theme === 'light') {
+                    document.documentElement.classList.add('theme-light');
+                  } else {
+                    document.documentElement.classList.remove('theme-light');
+                  }
+                } catch (e) {}
+              })();
+            `,
+          }}
+        />
       </head>
       <body>
         {children}

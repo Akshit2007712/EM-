@@ -5,16 +5,25 @@ export function useContent(): [SiteContent, (c: SiteContent) => void] {
   const [content, setContent] = useState<SiteContent>(() => loadContent());
 
   useEffect(() => {
-    // Sync from Supabase on mount
-    const syncWithSupabase = async () => {
-      const remoteData = await fetchFromSupabase();
-      if (remoteData) {
-        localStorage.setItem("empirical-society-content-v1", JSON.stringify(remoteData));
-        setContent(remoteData);
-      }
-    };
+    const hasLocalContent =
+      typeof window !== "undefined" &&
+      localStorage.getItem("empirical-society-content-v1") !== null;
 
-    syncWithSupabase();
+    // Only fetch from remote if no local content exists yet
+    // This prevents the API from overwriting admin's in-progress edits
+    if (!hasLocalContent) {
+      const syncFromRemote = async () => {
+        const remoteData = await fetchFromSupabase();
+        if (remoteData) {
+          localStorage.setItem(
+            "empirical-society-content-v1",
+            JSON.stringify(remoteData)
+          );
+          setContent(remoteData);
+        }
+      };
+      syncFromRemote();
+    }
 
     const handler = () => setContent(loadContent());
     window.addEventListener("empirical:content-updated", handler);

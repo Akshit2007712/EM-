@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useEffect } from "react";
 import { SiteNav } from "@/components/site-nav";
 import { Hero } from "@/components/hero";
-import { AboutSection, SiteFooter } from "@/components/about-section";
+import { SiteFooter } from "@/components/about-section";
 import { TeamSection } from "@/components/team-section";
 import { EventsSection } from "@/components/events-section";
 import { GallerySection } from "@/components/gallery-section";
@@ -12,16 +12,16 @@ import { useReveal, useSmoothScroll } from "@/hooks/use-smooth-scroll";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Empirical Society — Empowering Minds, Building Futures" },
+      { title: "The Empirical Society — Knowledge in Action, Innovation in Motion" },
       {
         name: "description",
         content:
-          "Empirical Society is a college community of curious students hosting events, publishing writing, and shipping creative initiatives across campus.",
+          "The Empirical Society is a college community of curious students hosting events, publishing writing, and shipping creative initiatives across campus.",
       },
-      { property: "og:title", content: "Empirical Society" },
+      { property: "og:title", content: "The Empirical Society" },
       {
         property: "og:description",
-        content: "Empowering Minds, Building Futures.",
+        content: "Knowledge in Action, Innovation in Motion.",
       },
     ],
   }),
@@ -44,7 +44,6 @@ function Index() {
       <SiteNav />
       <main>
         <Hero tagline={content.heroTagline} subtitle={content.heroSubtitle} />
-        <AboutSection />
         <TeamSection />
         <EventsSection />
         <GallerySection />

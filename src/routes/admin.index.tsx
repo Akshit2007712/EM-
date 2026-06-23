@@ -33,7 +33,7 @@ import { useContent } from "@/hooks/use-content";
 export const Route = createFileRoute("/admin/")({
   head: () => ({
     meta: [
-      { title: "Admin Dashboard · Empirical Society" },
+      { title: "Admin Dashboard · The Empirical Society" },
       { name: "robots", content: "noindex, nofollow" },
     ],
   }),
@@ -41,25 +41,36 @@ export const Route = createFileRoute("/admin/")({
 });
 
 type Tab = "site" | "people" | "teams" | "events" | "gallery";
+type SaveStatus = "idle" | "saving" | "saved" | "error";
 
 function AdminDashboard() {
   const navigate = useNavigate();
   const [content, setContent] = useContent();
   const [tab, setTab] = useState<Tab>("site");
   const [draft, setDraft] = useState<SiteContent>(content);
+  const [saveStatus, setSaveStatus] = useState<SaveStatus>("idle");
+  const [saveError, setSaveError] = useState("");
 
   useEffect(() => {
     if (!isAdmin()) navigate({ to: "/admin/login" });
   }, [navigate]);
 
-  useEffect(() => {
-    setDraft(content);
-  }, [content]);
+  // Only sync draft when content changes from OUTSIDE (e.g. storage event)
+  // We intentionally do NOT sync draft here to avoid overwriting mid-edit state
 
   const persist = (next: SiteContent) => {
     setDraft(next);
-    saveContent(next);
-    setContent(next);
+    setSaveStatus("saving");
+    const result = saveContent(next);
+    if (result.ok) {
+      setContent(next);
+      setSaveStatus("saved");
+      setSaveError("");
+      setTimeout(() => setSaveStatus("idle"), 2200);
+    } else {
+      setSaveStatus("error");
+      setSaveError(result.error ?? "Unknown error");
+    }
   };
 
   const tabs: { id: Tab; label: string; icon: React.ReactNode }[] = [
@@ -135,6 +146,26 @@ function AdminDashboard() {
             {tabs.find((t) => t.id === tab)?.icon}
             {tabs.find((t) => t.id === tab)?.label}
           </h1>
+          {/* Save status badge */}
+          <div className="flex items-center gap-2 text-sm">
+            {saveStatus === "saving" && (
+              <span className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-primary/10 text-primary font-medium animate-pulse">
+                <span className="size-1.5 rounded-full bg-primary inline-block" />
+                Saving…
+              </span>
+            )}
+            {saveStatus === "saved" && (
+              <span className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-medium">
+                <CheckCircle2 className="size-4" />
+                Saved!
+              </span>
+            )}
+            {saveStatus === "error" && (
+              <span className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-red-500/10 text-red-600 dark:text-red-400 font-medium text-xs max-w-xs truncate" title={saveError}>
+                ⚠ {saveError}
+              </span>
+            )}
+          </div>
         </header>
         <div className="p-10 max-w-5xl mx-auto animate-in fade-in slide-in-from-bottom-4 duration-500">
           {tab === "site" && <SiteTab draft={draft} persist={persist} />}
@@ -189,13 +220,14 @@ function ImageUpload({
       img.onload = () => {
         // Compress image to fit in localStorage
         const canvas = document.createElement("canvas");
-        const MAX_WIDTH = 800;
-        const scaleSize = MAX_WIDTH / img.width;
-        canvas.width = MAX_WIDTH;
-        canvas.height = img.height * scaleSize;
+        // Keep images small to stay under the 5 MB localStorage limit
+        const MAX_WIDTH = 500;
+        const scale = Math.min(1, MAX_WIDTH / img.width);
+        canvas.width = Math.round(img.width * scale);
+        canvas.height = Math.round(img.height * scale);
         const ctx = canvas.getContext("2d");
         ctx?.drawImage(img, 0, 0, canvas.width, canvas.height);
-        const dataUrl = canvas.toDataURL("image/jpeg", 0.8);
+        const dataUrl = canvas.toDataURL("image/jpeg", 0.65);
         onChange(dataUrl);
       };
       img.src = event.target?.result as string;

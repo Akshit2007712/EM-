@@ -1,4 +1,4 @@
-// Local data store for Empirical Society
+// Local data store for The Empirical Society
 // Persisted in localStorage; admin panel writes here, frontend reads.
 
 export type Person = {
@@ -55,35 +55,42 @@ export type SiteContent = {
 
 const STORAGE_KEY = "empirical-society-content-v1";
 
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3001";
+const ADMIN_KEY = "empirical-admin-token";
+
 import { defaultContent } from "./data";
-import { supabase } from "./supabase";
 
 export async function fetchFromSupabase(): Promise<SiteContent | null> {
-  if (!supabase) return null;
   try {
-    const { data, error } = await supabase.from("site_content").select("data").eq("id", 1).single();
-
-    if (error) {
-      if (error.code === "PGRST116") return null; // Not found
-      throw error;
+    const res = await fetch(`${API_URL}/api/content`);
+    if (!res.ok) {
+      if (res.status === 404) return null;
+      throw new Error(`HTTP error ${res.status}`);
     }
-    return data.data as SiteContent;
+    const data = await res.json();
+    return data.content as SiteContent;
   } catch (err) {
-    console.error("Error fetching from Supabase:", err);
+    console.error("Error fetching from API:", err);
     return null;
   }
 }
 
 export async function saveToSupabase(content: SiteContent) {
-  if (!supabase) return;
   try {
-    const { error } = await supabase
-      .from("site_content")
-      .upsert({ id: 1, data: content, updated_at: new Date() });
+    const token = localStorage.getItem(ADMIN_KEY);
+    if (!token) return;
+    const res = await fetch(`${API_URL}/api/content`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ content }),
+    });
 
-    if (error) throw error;
+    if (!res.ok) throw new Error(`HTTP error ${res.status}`);
   } catch (err) {
-    console.error("Error saving to Supabase:", err);
+    console.error("Error saving to API:", err);
   }
 }
 
@@ -111,37 +118,83 @@ export function loadContent(): SiteContent {
   }
 }
 
-export function saveContent(c: SiteContent) {
-  if (!isBrowser()) return;
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(c));
+export function saveContent(c: SiteContent): { ok: boolean; error?: string } {
+  if (!isBrowser()) return { ok: false, error: "Not in browser" };
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(c));
+  } catch (err: unknown) {
+    // Typically a QuotaExceededError — images are too large
+    const msg =
+      err instanceof Error ? err.message : "localStorage quota exceeded";
+    console.error("saveContent failed:", msg);
+    return { ok: false, error: "Storage full – try removing some images or using smaller photos." };
+  }
 
-  // Sync to Supabase in background if configured
+  // Sync to backend API in background (best-effort, won't block save)
   saveToSupabase(c);
 
   window.dispatchEvent(new Event("empirical:content-updated"));
+  return { ok: true };
 }
 
-export function resetContent() {
+export async function resetContent() {
   if (!isBrowser()) return;
   localStorage.removeItem(STORAGE_KEY);
+  try {
+    const token = localStorage.getItem(ADMIN_KEY);
+    if (token) {
+      await fetch(`${API_URL}/api/content`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+    }
+  } catch (err) {
+    console.error("Error resetting content on API:", err);
+  }
   window.dispatchEvent(new Event("empirical:content-updated"));
 }
 
-// Admin auth (mock — password gated)
-const ADMIN_KEY = "empirical-admin-token";
-export const ADMIN_PASSWORD = "empirical2024";
+const ADMIN_PASSWORD = "empirical2024";
+
+/** Mint a simple local session token valid for 8 hours. */
+function mintLocalToken(): string {
+  const expiry = Math.floor(Date.now() / 1000) + 8 * 3600;
+  const header = btoa(JSON.stringify({ alg: "local" })).replace(/=/g, "");
+  const body = btoa(JSON.stringify({ role: "admin", exp: expiry })).replace(/=/g, "");
+  return `${header}.${body}.local`;
+}
 
 export function isAdmin(): boolean {
   if (!isBrowser()) return false;
-  return localStorage.getItem(ADMIN_KEY) === "ok";
-}
-export function loginAdmin(pw: string): boolean {
-  if (pw === ADMIN_PASSWORD) {
-    localStorage.setItem(ADMIN_KEY, "ok");
+  const token = localStorage.getItem(ADMIN_KEY);
+  if (!token) return false;
+  try {
+    const parts = token.split(".");
+    if (parts.length < 2) return false;
+    // Restore base64 padding before decoding
+    const padded = parts[1].replace(/-/g, "+").replace(/_/g, "/");
+    const padding = (4 - (padded.length % 4)) % 4;
+    const decoded = atob(padded + "=".repeat(padding));
+    const payload = JSON.parse(decoded);
+    if (payload.exp && Date.now() >= payload.exp * 1000) {
+      localStorage.removeItem(ADMIN_KEY);
+      return false;
+    }
     return true;
+  } catch {
+    return false;
   }
-  return false;
 }
+
+/** Login is entirely local — no backend needed. */
+export async function loginAdmin(pw: string): Promise<boolean> {
+  if (pw !== ADMIN_PASSWORD) return false;
+  localStorage.setItem(ADMIN_KEY, mintLocalToken());
+  return true;
+}
+
 export function logoutAdmin() {
   localStorage.removeItem(ADMIN_KEY);
 }

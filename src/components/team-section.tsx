@@ -11,8 +11,8 @@ function TeamBlock({ team }: { team: Team }) {
 
   return (
     <div className="border-t border-border pt-12 mt-12 first:border-t-0 first:pt-0 first:mt-0">
-      <div className="flex items-end justify-between mb-8 reveal">
-        <h3 className="text-2xl md:text-3xl font-semibold tracking-tight">{team.name}</h3>
+      <div className="flex flex-wrap items-end justify-between gap-2 mb-8 reveal">
+        <h3 className="text-xl md:text-3xl font-semibold tracking-tight">{team.name}</h3>
         <span className="text-[10px] tracking-[0.2em] uppercase text-muted-foreground">
           {members.length + 1} members
         </span>
@@ -53,10 +53,10 @@ export function TeamSection() {
   return (
     <section id="team" className="border-t border-border">
       <div className="max-w-[1440px] mx-auto px-6 md:px-10 py-24 md:py-32">
-        <div className="flex justify-between items-end mb-16">
-          <div className="space-y-6">
+        <div className="mb-10 md:mb-16">
+          <div className="space-y-4 md:space-y-6">
             <SectionHeading number="03" label="The Directorate" />
-            <h2 className="text-4xl md:text-6xl font-semibold tracking-tight max-w-[18ch] text-balance reveal">
+            <h2 className="text-3xl md:text-6xl font-semibold tracking-tight max-w-[18ch] text-balance reveal">
               Mentors, leads, and the teams behind every initiative.
             </h2>
           </div>

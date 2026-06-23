@@ -30,7 +30,7 @@ export function Hero({ tagline, subtitle }: Props) {
   const secondHalf = parts.slice(Math.ceil(parts.length / 2)).join(" ");
 
   return (
-    <section className="relative min-h-dvh flex flex-col justify-center items-center px-6 pt-32 pb-16 text-center overflow-hidden">
+    <section className="relative min-h-dvh flex flex-col justify-center items-center px-5 sm:px-6 pt-24 sm:pt-32 pb-12 sm:pb-16 text-center overflow-hidden">
       {/* Parallax background image */}
       <div ref={imgRef} className="absolute inset-0 -z-20 will-change-transform" aria-hidden>
         <img
@@ -60,20 +60,16 @@ export function Hero({ tagline, subtitle }: Props) {
 
       <a
         href="#about"
-        className="group relative inline-flex items-center gap-3 px-8 py-4 bg-card border border-border overflow-hidden hover:border-led/50 transition-colors duration-500 reveal"
+        className="group relative inline-flex items-center gap-3 px-8 py-4 rounded-full bg-foreground/5 backdrop-blur-md border border-foreground/15 shadow-md hover:border-led/60 hover:bg-led/10 hover:shadow-lg overflow-hidden transition-all duration-500 reveal"
       >
-        <span className="absolute inset-0 bg-gradient-to-r from-transparent via-led/15 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
+        <span className="absolute inset-0 bg-gradient-to-r from-transparent via-led/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
         <span className="relative z-10 text-sm font-semibold tracking-[0.18em] uppercase group-hover:text-led transition-colors duration-300">
           Explore
         </span>
-        <span className="relative z-10 group-hover:translate-y-1 transition-transform">↓</span>
+        <span className="relative z-10 group-hover:translate-y-1 transition-transform duration-300">↓</span>
       </a>
 
-      {/* Scroll cue */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-[10px] tracking-[0.3em] uppercase text-muted-foreground/60 flex flex-col items-center gap-2">
-        <span>Scroll</span>
-        <span className="block w-px h-8 bg-gradient-to-b from-led/60 to-transparent" />
-      </div>
+
     </section>
   );
 }

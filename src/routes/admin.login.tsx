@@ -5,7 +5,7 @@ import { isAdmin, loginAdmin } from "@/lib/store";
 export const Route = createFileRoute("/admin/login")({
   head: () => ({
     meta: [
-      { title: "Admin · Empirical Society" },
+      { title: "Admin · The Empirical Society" },
       { name: "robots", content: "noindex, nofollow" },
     ],
   }),
@@ -21,9 +21,10 @@ function AdminLogin() {
     if (isAdmin()) navigate({ to: "/admin" });
   }, [navigate]);
 
-  const submit = (e: React.FormEvent) => {
+  const submit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (loginAdmin(pw)) {
+    const success = await loginAdmin(pw);
+    if (success) {
       navigate({ to: "/admin" });
     } else {
       setErr("Incorrect password.");
