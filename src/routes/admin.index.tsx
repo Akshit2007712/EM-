@@ -586,7 +586,7 @@ function TeamsTab({ draft, persist }: { draft: SiteContent; persist: (c: SiteCon
       </div>
       {draft.teams.map((team, ti) => (
         <Card key={team.id} className="space-y-4">
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-between gap-2 flex-wrap">
             <Field label="Team name">
               <input
                 className={`${inputCls} min-w-[260px]`}
@@ -598,14 +598,42 @@ function TeamsTab({ draft, persist }: { draft: SiteContent; persist: (c: SiteCon
                 }}
               />
             </Field>
-            <button
-              onClick={() => setTeams(draft.teams.filter((_, j) => j !== ti))}
-              className="flex items-center gap-1.5 text-xs px-3 py-1.5 border border-destructive/20 text-destructive rounded-lg hover:bg-destructive hover:text-destructive-foreground transition-all shadow-sm"
-              title="Delete team"
-            >
-              <Trash2 className="size-3.5" />
-              Delete team
-            </button>
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => {
+                  if (ti === 0) return;
+                  const copy = [...draft.teams];
+                  [copy[ti - 1], copy[ti]] = [copy[ti], copy[ti - 1]];
+                  setTeams(copy);
+                }}
+                disabled={ti === 0}
+                className="flex items-center gap-1 text-xs px-2.5 py-1.5 border border-border rounded-lg hover:bg-accent transition-all disabled:opacity-30 disabled:cursor-not-allowed"
+                title="Move team up"
+              >
+                ↑ Up
+              </button>
+              <button
+                onClick={() => {
+                  if (ti === draft.teams.length - 1) return;
+                  const copy = [...draft.teams];
+                  [copy[ti], copy[ti + 1]] = [copy[ti + 1], copy[ti]];
+                  setTeams(copy);
+                }}
+                disabled={ti === draft.teams.length - 1}
+                className="flex items-center gap-1 text-xs px-2.5 py-1.5 border border-border rounded-lg hover:bg-accent transition-all disabled:opacity-30 disabled:cursor-not-allowed"
+                title="Move team down"
+              >
+                ↓ Down
+              </button>
+              <button
+                onClick={() => setTeams(draft.teams.filter((_, j) => j !== ti))}
+                className="flex items-center gap-1.5 text-xs px-3 py-1.5 border border-destructive/20 text-destructive rounded-lg hover:bg-destructive hover:text-destructive-foreground transition-all shadow-sm"
+                title="Delete team"
+              >
+                <Trash2 className="size-3.5" />
+                Delete team
+              </button>
+            </div>
           </div>
           <div>
             <div className="flex items-center justify-between mb-2">
