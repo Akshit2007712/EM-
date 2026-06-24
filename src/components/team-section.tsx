@@ -62,6 +62,20 @@ export function TeamSection() {
           </div>
         </div>
 
+        {/* Faculty Coordinators */}
+        <div className="mb-20">
+          <div className="flex items-end justify-between mb-8 reveal">
+            <h3 className="text-2xl md:text-3xl font-semibold tracking-tight">
+              Faculty Coordinators
+            </h3>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+            {content.faculty.map((p, i) => (
+              <PersonCard key={p.id} person={p} index={i} />
+            ))}
+          </div>
+        </div>
+
         {/* Mentors */}
         <div className="mb-20">
           <div className="flex items-end justify-between mb-8 reveal">
@@ -72,20 +86,6 @@ export function TeamSection() {
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
             {content.mentors.map((p, i) => (
-              <PersonCard key={p.id} person={p} index={i} />
-            ))}
-          </div>
-        </div>
-
-        {/* Faculty */}
-        <div className="mb-20">
-          <div className="flex items-end justify-between mb-8 reveal">
-            <h3 className="text-2xl md:text-3xl font-semibold tracking-tight">
-              Faculty Coordinators
-            </h3>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-            {content.faculty.map((p, i) => (
               <PersonCard key={p.id} person={p} index={i} />
             ))}
           </div>
