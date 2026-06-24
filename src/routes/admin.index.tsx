@@ -391,6 +391,20 @@ function SiteTab({ draft, persist }: { draft: SiteContent; persist: (c: SiteCont
                 }
               />
             </Field>
+            <Field label="Contact Numbers">
+              <input
+                type="text"
+                placeholder="+91 98765 43210, +91 87654 32109"
+                className={inputCls}
+                value={draft.socialLinks?.phone || ""}
+                onChange={(e) =>
+                  persist({
+                    ...draft,
+                    socialLinks: { ...draft.socialLinks, phone: e.target.value },
+                  })
+                }
+              />
+            </Field>
           </div>
         </Card>
       </div>

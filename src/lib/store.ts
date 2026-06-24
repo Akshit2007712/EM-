@@ -49,6 +49,7 @@ export type SiteContent = {
     twitter: string;
     linkedin: string;
     email: string;
+    phone?: string;
   };
   mentors: Person[];
   faculty: Person[];

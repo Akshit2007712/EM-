@@ -52,62 +52,73 @@ export function SiteFooter() {
 
   return (
     <footer className="border-t border-border mt-32">
-      <div className="max-w-[1440px] mx-auto px-6 md:px-10 py-12 flex flex-col md:flex-row items-center justify-between gap-6 text-[10px] tracking-[0.22em] uppercase text-muted-foreground">
-        <div className="flex items-center gap-3">
-          <span className="size-1.5 rounded-full bg-led led-dot" />
-          The Empirical Society © {new Date().getFullYear()}
+      <div className="max-w-[1440px] mx-auto px-6 md:px-10 py-12 flex flex-col gap-6 text-[10px] tracking-[0.22em] uppercase text-muted-foreground">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+          <div className="flex items-center gap-3">
+            <span className="size-1.5 rounded-full bg-led led-dot" />
+            The Empirical Society © {new Date().getFullYear()}
+          </div>
+          <div className="flex flex-wrap items-center justify-center gap-6">
+            <a href="#team" className="hover:text-foreground transition-colors">
+              Team
+            </a>
+            <a href="#events" className="hover:text-foreground transition-colors">
+              Events
+            </a>
+            <a href="#gallery" className="hover:text-foreground transition-colors">
+              Gallery
+            </a>
+          </div>
+          <div className="flex flex-wrap items-center justify-center gap-6">
+            {content.socialLinks?.instagram && (
+              <a
+                href={content.socialLinks.instagram}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-foreground transition-colors"
+              >
+                Instagram
+              </a>
+            )}
+            {content.socialLinks?.twitter && (
+              <a
+                href={content.socialLinks.twitter}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-foreground transition-colors"
+              >
+                Twitter
+              </a>
+            )}
+            {content.socialLinks?.linkedin && (
+              <a
+                href={content.socialLinks.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-foreground transition-colors"
+              >
+                LinkedIn
+              </a>
+            )}
+            {content.socialLinks?.email && (
+              <a href={content.socialLinks.email} className="hover:text-foreground transition-colors">
+                Email
+              </a>
+            )}
+            <a href="/admin" className="hover:text-foreground transition-colors text-led ml-4">
+              Admin
+            </a>
+          </div>
         </div>
-        <div className="flex flex-wrap items-center justify-center gap-6">
-          <a href="#team" className="hover:text-foreground transition-colors">
-            Team
-          </a>
-          <a href="#events" className="hover:text-foreground transition-colors">
-            Events
-          </a>
-          <a href="#gallery" className="hover:text-foreground transition-colors">
-            Gallery
-          </a>
-        </div>
-        <div className="flex flex-wrap items-center justify-center gap-6">
-          {content.socialLinks?.instagram && (
-            <a
-              href={content.socialLinks.instagram}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-foreground transition-colors"
-            >
-              Instagram
-            </a>
-          )}
-          {content.socialLinks?.twitter && (
-            <a
-              href={content.socialLinks.twitter}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-foreground transition-colors"
-            >
-              Twitter
-            </a>
-          )}
-          {content.socialLinks?.linkedin && (
-            <a
-              href={content.socialLinks.linkedin}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-foreground transition-colors"
-            >
-              LinkedIn
-            </a>
-          )}
-          {content.socialLinks?.email && (
-            <a href={content.socialLinks.email} className="hover:text-foreground transition-colors">
-              Email
-            </a>
-          )}
-          <a href="/admin" className="hover:text-foreground transition-colors text-led ml-4">
-            Admin
-          </a>
-        </div>
+
+        {content.socialLinks?.phone && (
+          <div className="border-t border-border/40 pt-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div className="flex flex-wrap items-center justify-center md:justify-start gap-3 normal-case tracking-normal text-xs text-muted-foreground/80">
+              <span className="font-semibold uppercase tracking-wider text-[10px] text-muted-foreground">Contact Numbers:</span>
+              <span>{content.socialLinks.phone}</span>
+            </div>
+          </div>
+        )}
       </div>
     </footer>
   );

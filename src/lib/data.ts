@@ -38,6 +38,7 @@ export const defaultContent: SiteContent = {
     twitter: "https://twitter.com",
     linkedin: "https://linkedin.com",
     email: "mailto:hello@empirical.org",
+    phone: "+91 98765 43210, +91 87654 32109",
   },
   mentors: [
     {
