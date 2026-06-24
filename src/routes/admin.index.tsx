@@ -529,7 +529,7 @@ function PeopleTab({ draft, persist }: { draft: SiteContent; persist: (c: SiteCo
         onChange={(faculty) => persist({ ...draft, faculty })}
       />
       <PeopleGroup
-        title="Leads"
+        title="Heads"
         list={draft.leads}
         onChange={(leads) => persist({ ...draft, leads })}
       />
@@ -596,7 +596,7 @@ function TeamsTab({ draft, persist }: { draft: SiteContent; persist: (c: SiteCon
           <div>
             <div className="flex items-center justify-between mb-2">
               <h3 className="text-[10px] tracking-[0.2em] uppercase text-muted-foreground mb-2">
-                Leads
+                Heads
               </h3>
               <button
                 onClick={() => {
