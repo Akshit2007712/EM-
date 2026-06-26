@@ -2,6 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { useTheme } from "../hooks/use-theme";
 import { Sun, Moon, Menu, X } from "lucide-react";
+import logoUrl from "../assets/logo.jpg";
 
 const NAV_LINKS = [
   { href: "#team", label: "Team" },
@@ -41,9 +42,13 @@ export function SiteNav() {
       <div className="max-w-[1440px] mx-auto flex items-center justify-between px-5 md:px-10 py-4 md:py-5">
         <Link
           to="/"
-          className="flex items-center gap-2.5 text-xs font-semibold tracking-[0.18em] uppercase"
+          className="flex items-center gap-3 text-xs font-semibold tracking-[0.18em] uppercase group"
         >
-          <span className="block size-1.5 rounded-full bg-led led-dot flex-shrink-0" />
+          <img
+            src={logoUrl}
+            alt="The Empirical Society Logo"
+            className="size-8 rounded-lg object-cover border border-border group-hover:scale-105 transition-transform"
+          />
           <span className="truncate">The Empirical Society</span>
         </Link>
 
@@ -60,10 +65,6 @@ export function SiteNav() {
           {/* Theme toggle */}
           <button
             onClick={toggleTheme}
-            onTouchStart={(e) => {
-              e.preventDefault();
-              toggleTheme();
-            }}
             className="p-3 md:p-2 rounded-full border border-border bg-card/40 hover:bg-accent hover:text-accent-foreground transition-all duration-300 flex items-center justify-center text-muted-foreground hover:text-foreground cursor-pointer focus:outline-none relative overflow-hidden"
             aria-label="Toggle theme"
           >
@@ -142,10 +143,6 @@ export function SiteNav() {
             </span>
             <button
               onClick={toggleTheme}
-              onTouchStart={(e) => {
-                e.preventDefault();
-                toggleTheme();
-              }}
               className="flex items-center gap-2 px-4 py-1.5 rounded-full border border-border bg-card/60 hover:bg-accent text-xs font-semibold tracking-[0.1em] uppercase text-foreground cursor-pointer"
             >
               {theme === "light" ? (
