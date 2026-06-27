@@ -28,9 +28,9 @@ export function GallerySection() {
   }, [index, close, next, prev]);
 
   return (
-    <section id="gallery" className="border-t border-border">
-      <div className="max-w-[1440px] mx-auto px-6 md:px-10 py-24 md:py-32">
-        <div className="mb-16 reveal">
+    <section id="gallery" className="border-t border-border section-anchor">
+      <div className="max-w-[1440px] mx-auto px-6 md:px-10 py-16 md:py-24">
+        <div className="mb-8 md:mb-10 reveal">
           <SectionHeading number="06" label="Gallery" />
           <h2 className="mt-6 text-3xl md:text-6xl font-semibold tracking-tight max-w-[20ch] text-balance">
             Moments from the field.
@@ -41,7 +41,7 @@ export function GallerySection() {
             <button
               key={img.id}
               onClick={() => setIndex(i)}
-              className="group relative aspect-square overflow-hidden bg-panel border border-border hover:border-led/40 transition-colors reveal"
+              className="group relative aspect-square overflow-hidden bg-panel border border-border hover:border-led/40 hover:scale-[1.01] transition-all duration-500 reveal"
             >
               <img
                 src={img.url}

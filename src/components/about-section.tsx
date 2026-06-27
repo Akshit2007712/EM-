@@ -4,22 +4,22 @@ import { SectionHeading } from "./section-heading";
 export function AboutSection() {
   const [content] = useContent();
   return (
-    <section id="about" className="border-t border-border">
-      <div className="max-w-[1440px] mx-auto px-6 md:px-10 py-24 md:py-32 grid grid-cols-1 md:grid-cols-12 gap-12">
-        <div className="md:col-span-3 flex flex-col justify-between gap-8">
+    <section id="about" className="border-t border-border section-anchor">
+      <div className="max-w-[1440px] mx-auto px-6 md:px-10 py-16 md:py-24 grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-10">
+        <div className="md:col-span-3 flex flex-col justify-between gap-6">
           <SectionHeading number="01" label="About" />
           <div className="hidden md:block text-[10px] font-medium tracking-[0.22em] uppercase text-muted-foreground">
             Est. MMXIX <br />
             Open Membership
           </div>
         </div>
-        <div className="md:col-span-9 space-y-10">
-          <h2 className="text-3xl md:text-5xl font-medium tracking-tight leading-[1.1] max-w-[28ch] reveal">
+        <div className="md:col-span-9 space-y-6 md:space-y-8">
+          <h2 className="text-3xl md:text-5xl font-medium tracking-tight leading-[1.15] max-w-[28ch] reveal">
             {content.about}
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 border-t border-border pt-10">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 border-t border-border pt-6 md:pt-8">
             <div className="reveal">
-              <div className="text-[10px] tracking-[0.22em] uppercase text-led mb-3">Mission</div>
+              <div className="text-[10px] tracking-[0.22em] uppercase text-led mb-2">Mission</div>
               <p className="text-muted-foreground leading-relaxed text-pretty">{content.mission}</p>
             </div>
             <div className="grid grid-cols-2 gap-6 reveal">
@@ -51,8 +51,8 @@ export function SiteFooter() {
   const [content] = useContent();
 
   return (
-    <footer className="border-t border-border mt-32">
-      <div className="max-w-[1440px] mx-auto px-6 md:px-10 py-12 flex flex-col gap-6 text-[10px] tracking-[0.22em] uppercase text-muted-foreground">
+    <footer className="border-t border-border mt-16 md:mt-24">
+      <div className="max-w-[1440px] mx-auto px-6 md:px-10 py-8 md:py-10 flex flex-col gap-4 text-[10px] tracking-[0.22em] uppercase text-muted-foreground">
         <div className="flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="flex items-center gap-3">
             <span className="size-1.5 rounded-full bg-led led-dot" />

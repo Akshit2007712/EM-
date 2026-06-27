@@ -62,9 +62,9 @@ export function EventsSection() {
   const [active, setActive] = useState<EventItem | null>(null);
 
   return (
-    <section id="events" className="border-t border-border">
-      <div className="max-w-[1440px] mx-auto px-6 md:px-10 py-24 md:py-32">
-        <div className="mb-16 reveal">
+    <section id="events" className="border-t border-border section-anchor">
+      <div className="max-w-[1440px] mx-auto px-6 md:px-10 py-16 md:py-24">
+        <div className="mb-8 md:mb-10 reveal">
           <SectionHeading number="05" label="Past Events" />
           <h2 className="mt-6 text-3xl md:text-6xl font-semibold tracking-tight max-w-[20ch] text-balance">
             A record of what we've built together.
@@ -75,7 +75,7 @@ export function EventsSection() {
             <button
               key={e.id}
               onClick={() => setActive(e)}
-              className="group text-left bg-card border border-border overflow-hidden hover:border-led/40 transition-all duration-500 reveal"
+              className="group text-left bg-card border border-border overflow-hidden hover:border-led/40 hover:-translate-y-1 hover:shadow-[0_20px_60px_rgba(0,0,0,0.22)] transition-all duration-500 reveal"
             >
               <div className="aspect-[4/3] overflow-hidden bg-panel relative">
                 <img

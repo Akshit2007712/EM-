@@ -55,7 +55,11 @@ export function SiteNav() {
         {/* Desktop nav */}
         <nav className="hidden md:flex gap-8 text-xs font-medium tracking-widest uppercase text-muted-foreground">
           {NAV_LINKS.map((link) => (
-            <a key={link.href} href={link.href} className="hover:text-foreground transition-colors">
+            <a
+              key={link.href}
+              href={link.href}
+              className="relative py-1.5 transition-colors duration-300 hover:text-foreground after:absolute after:left-0 after:bottom-0 after:h-px after:w-full after:scale-x-0 after:bg-led after:transition-transform after:duration-300 hover:after:scale-x-100"
+            >
               {link.label}
             </a>
           ))}
@@ -65,7 +69,7 @@ export function SiteNav() {
           {/* Theme toggle */}
           <button
             onClick={toggleTheme}
-            className="p-3 md:p-2 rounded-full border border-border bg-card/40 hover:bg-accent hover:text-accent-foreground transition-all duration-300 flex items-center justify-center text-muted-foreground hover:text-foreground cursor-pointer focus:outline-none relative overflow-hidden"
+            className="p-3 md:p-2 rounded-full border border-border bg-card/40 hover:bg-accent hover:text-accent-foreground transition-all duration-300 flex items-center justify-center text-muted-foreground hover:text-foreground cursor-pointer focus:outline-none relative overflow-hidden shadow-sm"
             aria-label="Toggle theme"
           >
             <div className="relative size-4">
@@ -89,7 +93,7 @@ export function SiteNav() {
           {/* Join Us — desktop only */}
           <a
             href="#team"
-            className="hidden md:inline-block px-4 py-2 text-[10px] font-semibold tracking-[0.18em] uppercase bg-foreground text-background hover:bg-led hover:text-background transition-colors duration-300"
+            className="hidden md:inline-block px-4 py-2 text-[10px] font-semibold tracking-[0.18em] uppercase bg-foreground text-background hover:bg-led hover:text-background transition-colors duration-300 shadow-sm"
           >
             Join Us
           </a>

@@ -4,7 +4,7 @@
 
 @custom-variant dark (&:is(.dark *));
 
-/* The Empirical Society — Obsidian LED design system */
+/* The Empirical Society — Azure Blue design system */
 
 @theme inline {
   --font-sans: "Instrument Sans", system-ui, sans-serif;
@@ -43,13 +43,13 @@
   --color-hairline: var(--hairline);
 
   --shadow-glow:
-    0 0 0 1px color-mix(in oklch, var(--led) 30%, transparent),
-    0 8px 40px -8px color-mix(in oklch, var(--led) 35%, transparent);
-  --shadow-card: 0 8px 30px rgba(0, 0, 0, 0.5);
+    0 0 0 1px color-mix(in oklch, var(--led) 28%, transparent),
+    0 12px 42px -12px color-mix(in oklch, var(--led) 35%, transparent);
+  --shadow-card: 0 16px 45px rgba(7, 26, 47, 0.22);
 
   --gradient-hero: radial-gradient(
     ellipse 100% 100% at 50% 0%,
-    color-mix(in oklch, var(--led) 14%, transparent),
+    color-mix(in oklch, var(--led) 22%, transparent),
     transparent 70%
   );
   --gradient-led-line: linear-gradient(to right, transparent, var(--led), transparent);
@@ -77,73 +77,72 @@
   }
 }
 
-/* Default = dark, premium obsidian theme */
+/* Default = dark, polished blue-navy theme */
 :root {
   --radius: 0.5rem;
 
-  --background: oklch(0.13 0.01 260);
-  --foreground: oklch(0.98 0.005 250);
+  --background: #071a2f;
+  --foreground: #f4f9ff;
 
-  --card: oklch(0.16 0.012 260);
-  --card-foreground: oklch(0.98 0.005 250);
+  --card: #0d2644;
+  --card-foreground: #f4f9ff;
 
-  --popover: oklch(0.16 0.012 260);
-  --popover-foreground: oklch(0.98 0.005 250);
+  --popover: #0d2644;
+  --popover-foreground: #f4f9ff;
 
-  --primary: oklch(0.85 0.18 215);
-  --primary-foreground: oklch(0.13 0.01 260);
+  --primary: #5bb3ff;
+  --primary-foreground: #071a2f;
 
-  --secondary: oklch(0.22 0.015 260);
-  --secondary-foreground: oklch(0.98 0.005 250);
+  --secondary: #123556;
+  --secondary-foreground: #f4f9ff;
 
-  --muted: oklch(0.2 0.012 260);
-  --muted-foreground: oklch(0.65 0.02 260);
+  --muted: #102b45;
+  --muted-foreground: #8fb3d2;
 
-  --accent: oklch(0.25 0.02 260);
-  --accent-foreground: oklch(0.98 0.005 250);
+  --accent: #143a5e;
+  --accent-foreground: #f4f9ff;
 
-  --destructive: oklch(0.62 0.22 25);
-  --destructive-foreground: oklch(0.98 0 0);
+  --destructive: #ff6b6b;
+  --destructive-foreground: #fff7f7;
 
-  --border: oklch(1 0 0 / 8%);
-  --input: oklch(1 0 0 / 12%);
-  --ring: oklch(0.85 0.18 215);
+  --border: rgba(255, 255, 255, 0.12);
+  --input: rgba(255, 255, 255, 0.1);
+  --ring: #5bb3ff;
 
   /* Brand */
-  --led: oklch(0.85 0.18 215); /* electric cyan */
-  --led-soft: oklch(0.55 0.12 260); /* deep purple */
-  --glass: oklch(0.16 0.012 260);
-  --panel: oklch(0.18 0.012 260);
-  --hairline: oklch(1 0 0 / 6%);
+  --led: #4da3ff;
+  --led-soft: #2b63c6;
+  --glass: rgba(8, 22, 40, 0.82);
+  --panel: #112d48;
+  --hairline: rgba(255, 255, 255, 0.1);
 }
 
-/* Light mode — full public site */
+/* Light mode — crisp white and blue */
 .theme-light, :root.theme-light {
-  --background: oklch(0.97 0.005 250);
-  --foreground: oklch(0.12 0.015 260);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.12 0.015 260);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.12 0.015 260);
-  --primary: oklch(0.45 0.2 265);
-  --primary-foreground: oklch(0.99 0 0);
-  --secondary: oklch(0.93 0.01 260);
-  --secondary-foreground: oklch(0.12 0.015 260);
-  --muted: oklch(0.93 0.008 260);
-  --muted-foreground: oklch(0.45 0.02 260);
-  --accent: oklch(0.9 0.015 260);
-  --accent-foreground: oklch(0.12 0.015 260);
-  --destructive: oklch(0.62 0.22 25);
-  --destructive-foreground: oklch(0.99 0 0);
-  --border: oklch(0.82 0.01 260);
-  --input: oklch(0.88 0.008 260);
-  --ring: oklch(0.45 0.2 265);
-  --hairline: oklch(0.85 0.008 260);
-  --panel: oklch(0.95 0.006 260);
-  --glass: oklch(1 0 0 / 80%);
-  /* Override LED to deep indigo/violet so it's visible on light bg */
-  --led: oklch(0.45 0.22 265);
-  --led-soft: oklch(0.65 0.15 265);
+  --background: #f4f9ff;
+  --foreground: #0d223c;
+  --card: #ffffff;
+  --card-foreground: #0d223c;
+  --popover: #ffffff;
+  --popover-foreground: #0d223c;
+  --primary: #1768d3;
+  --primary-foreground: #ffffff;
+  --secondary: #e7f2ff;
+  --secondary-foreground: #0d223c;
+  --muted: #eef6ff;
+  --muted-foreground: #4d6888;
+  --accent: #dceeff;
+  --accent-foreground: #0d223c;
+  --destructive: #d64545;
+  --destructive-foreground: #ffffff;
+  --border: rgba(13, 34, 60, 0.12);
+  --input: rgba(13, 34, 60, 0.08);
+  --ring: #1768d3;
+  --hairline: rgba(13, 34, 60, 0.14);
+  --panel: #f5f9ff;
+  --glass: rgba(255, 255, 255, 0.8);
+  --led: #1768d3;
+  --led-soft: #4da3ff;
 }
 
 @layer base {
@@ -159,10 +158,14 @@
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
-    transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease;
+    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
   }
-  
-  /* Smooth theme transition for elements that change colors */
+
+  section {
+    content-visibility: auto;
+    contain-intrinsic-size: 1200px;
+  }
+
   .bg-background,
   .bg-card,
   .bg-panel,
@@ -171,28 +174,46 @@
   .border-border,
   header,
   footer,
-  section,
   button,
   a,
   input,
-  textarea,
-  h1, h2, h3, h4, h5, h6,
-  p,
-  span {
-    transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+  textarea {
+    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
   }
+
   ::selection {
     background: var(--led);
     color: oklch(0.99 0 0);
   }
-  /* Light mode selection — use led as highlight, white text */
+
   .theme-light ::selection {
     background: var(--led);
     color: oklch(0.99 0 0);
   }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
 }
 
 @layer utilities {
+  .section-anchor {
+    scroll-margin-top: 6rem;
+  }
+  .hero-ambient {
+    animation: drift 10s ease-in-out infinite;
+  }
   .led-dot {
     box-shadow: 0 0 8px color-mix(in oklch, var(--led) 80%, transparent);
   }
@@ -219,5 +240,15 @@
   .reveal.in-view {
     opacity: 1;
     transform: translateY(0);
+  }
+
+  @keyframes drift {
+    0%,
+    100% {
+      transform: translate(-50%, 0) scale(1);
+    }
+    50% {
+      transform: translate(-48%, -10px) scale(1.05);
+    }
   }
 }
