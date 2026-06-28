@@ -92,7 +92,9 @@ export function SiteNav() {
 
           {/* Join Us — desktop only */}
           <a
-            href="#team"
+            href="https://forms.gle/2E7U8UT8ud3HSxZP7"
+            target="_blank"
+            rel="noopener noreferrer"
             className="hidden md:inline-block px-4 py-2 text-[10px] font-semibold tracking-[0.18em] uppercase bg-foreground text-background hover:bg-led hover:text-background transition-colors duration-300 shadow-sm"
           >
             Join Us
@@ -162,7 +164,9 @@ export function SiteNav() {
           </div>
 
           <a
-            href="#team"
+            href="https://forms.gle/2E7U8UT8ud3HSxZP7"
+            target="_blank"
+            rel="noopener noreferrer"
             onClick={() => setMenuOpen(false)}
             className="mt-4 py-3 text-[11px] font-semibold tracking-[0.18em] uppercase bg-foreground text-background hover:bg-led hover:text-background transition-colors duration-300 text-center"
           >
