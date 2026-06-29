@@ -80,10 +80,25 @@ function isBrowser() {
 
 function mergeSponsors(sponsors?: Sponsor[]): Sponsor[] {
   if (!sponsors) return defaultContent.sponsors;
-  return sponsors.map((sponsor) => {
-    const base = defaultContent.sponsors.find((item) => item.id === sponsor.id);
-    return { ...base, ...sponsor } as Sponsor;
-  });
+
+  const defaultSponsorsById = new Map(
+    defaultContent.sponsors.map((sponsor) => [sponsor.id, sponsor])
+  );
+
+  const storedSponsorsById = new Map(
+    sponsors.map((sponsor) => [sponsor.id, sponsor])
+  );
+
+  const merged = defaultContent.sponsors.map((defaultSponsor) => ({
+    ...defaultSponsor,
+    ...storedSponsorsById.get(defaultSponsor.id),
+  }));
+
+  const extraSponsors = sponsors
+    .filter((sponsor) => !defaultSponsorsById.has(sponsor.id))
+    .map((sponsor) => ({ ...sponsor }));
+
+  return [...merged, ...extraSponsors];
 }
 
 export function loadContent(): SiteContent {

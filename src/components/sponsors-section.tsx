@@ -20,23 +20,23 @@ export function SponsorsSection() {
           {content.sponsors.map((sponsor) => (
             <article
               key={sponsor.id}
-              className="rounded-[1.5rem] border border-border bg-card p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+              className="rounded-[1.75rem] border border-border bg-card p-9 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
             >
-<div className="flex flex-col items-start gap-4 mb-5">
-          {sponsor.image ? (
-            <img
-              src={sponsor.image}
-              alt={`${sponsor.name} logo`}
-              className="h-16 w-auto max-w-[180px] object-contain"
-            />
-          ) : (
-            <div className="flex h-14 w-14 items-center justify-center rounded-3xl bg-muted text-[11px] font-semibold uppercase tracking-[0.22em] text-foreground text-center px-2">
-              {sponsor.abbr ?? sponsor.name.split(" ").slice(0, 2).map((part) => part[0]).join("")}
-            </div>
-          )}
-          <div className="w-full">
-                  <h3 className="text-xl font-semibold tracking-tight">{sponsor.name}</h3>
-                  <p className="mt-2 text-xs uppercase tracking-[0.18em] text-muted-foreground">
+              <div className="flex flex-col items-start gap-6 mb-6">
+                {sponsor.image ? (
+                  <img
+                    src={sponsor.image}
+                    alt={`${sponsor.name} logo`}
+                    className="h-24 w-auto max-w-[260px] object-contain"
+                  />
+                ) : (
+                  <div className="flex h-16 w-16 items-center justify-center rounded-3xl bg-muted text-sm font-semibold uppercase tracking-[0.22em] text-foreground text-center px-2">
+                    {sponsor.abbr ?? sponsor.name.split(" ").slice(0, 2).map((part) => part[0]).join("")}
+                  </div>
+                )}
+                <div className="w-full">
+                  <h3 className="text-xl md:text-2xl font-semibold tracking-tight">{sponsor.name}</h3>
+                  <p className="mt-3 text-sm uppercase tracking-[0.18em] text-muted-foreground">
                     {sponsor.category ?? "Previous sponsor"}
                   </p>
                 </div>

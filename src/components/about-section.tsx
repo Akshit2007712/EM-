@@ -12,21 +12,21 @@ function SponsorBadge({ sponsor }: { sponsor: Sponsor }) {
       href={sponsor.website || "#"}
       target="_blank"
       rel="noreferrer"
-      className="inline-flex items-center gap-3 rounded-full border border-border bg-card/80 px-4 py-2 transition duration-300 hover:border-led hover:bg-accent/10"
+      className="inline-flex items-center gap-4 rounded-3xl border border-border bg-card/90 px-5 py-3 transition duration-300 hover:border-led hover:bg-accent/10"
     >
       {showLogo ? (
         <img
           src={sponsor.image}
           alt={`${sponsor.name} logo`}
-          className="h-8 w-auto object-contain"
+          className="h-10 w-auto max-h-10 object-contain"
           onError={() => setLogoError(true)}
         />
       ) : (
-        <div className="flex h-8 w-8 items-center justify-center rounded-full bg-muted text-[11px] font-semibold uppercase tracking-[0.16em] text-foreground">
+        <div className="flex h-10 w-10 items-center justify-center rounded-full bg-muted text-sm font-semibold uppercase tracking-[0.16em] text-foreground">
           {sponsor.abbr ?? sponsor.name.split(" ").slice(0, 2).map((part) => part[0]).join("")}
         </div>
       )}
-      <span className="text-xs font-semibold uppercase tracking-[0.16em] text-foreground">
+      <span className="text-sm font-semibold uppercase tracking-[0.16em] text-foreground">
         {sponsor.name}
       </span>
     </a>
@@ -146,7 +146,7 @@ export function SiteFooter() {
         {content.sponsors?.length ? (
           <div className="border-t border-border/40 pt-6 mt-8">
             <div className="mb-4 text-xs uppercase tracking-[0.2em] text-muted-foreground font-semibold">
-              Supported by
+             Our Previous Sponsors
             </div>
             <div className="flex flex-wrap items-center gap-4">
               {content.sponsors.map((sponsor) => (

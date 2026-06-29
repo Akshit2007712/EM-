@@ -35,6 +35,16 @@ export const defaultContent: SiteContent = {
     "To cultivate a generation of curious, capable, and compassionate leaders by fostering an environment of inquiry, collaboration, and creative expression.",
   sponsors: [
     {
+      id: "s1",
+      name: "EDA",
+      abbr: "EDA",
+      category: "Event Partner",
+      description:
+        "Fueling our society with events, experiences, and student-focused engagement.",
+      website: "https://eda.org",
+      image: "/sponsors/eda.svg",
+    },
+    {
       id: "s2",
       name: "Microsoft Azure",
       abbr: "Azure",

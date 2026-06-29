@@ -55,7 +55,7 @@ export function TeamSection() {
       <div className="max-w-[1440px] mx-auto px-6 md:px-10 py-12 md:py-16">
         <div className="mb-8 md:mb-10">
           <div className="space-y-4 md:space-y-6">
-            <SectionHeading number="03" label="The Directorate" />
+            <SectionHeading number="02" label="The Directorate" />
             <h2 className="text-3xl md:text-6xl font-semibold tracking-tight max-w-[18ch] text-balance reveal">
               Mentors, leads, and the teams behind every initiative.
             </h2>
@@ -106,7 +106,7 @@ export function TeamSection() {
         {/* Teams */}
         <div className="border-t border-border pt-8">
           <div className="mb-8 reveal">
-            <SectionHeading number="04" label="The Teams" />
+            <SectionHeading number="03" label="The Teams" />
             <h3 className="mt-6 text-3xl md:text-5xl font-semibold tracking-tight max-w-[24ch] text-balance">
               Six teams. One society. Everything we ship.
             </h3>
