@@ -1,0 +1,5 @@
+<svg width="300" height="120" viewBox="0 0 300 120" xmlns="http://www.w3.org/2000/svg">
+  <rect width="300" height="120" rx="18" fill="#0C2447" />
+  <path d="M 38 30 C 58 18, 96 18, 116 30 S 154 54, 128 82" stroke="#FFB703" stroke-width="10" fill="none" stroke-linecap="round" />
+  <text x="40" y="100" fill="#FFFFFF" font-family="Arial, sans-serif" font-size="28" font-weight="700">Reskill-i</text>
+</svg>

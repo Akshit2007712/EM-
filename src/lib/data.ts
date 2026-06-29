@@ -33,6 +33,56 @@ export const defaultContent: SiteContent = {
     "Founded as a home for thinkers, makers, and storytellers, The Empirical Society brings together students from every discipline. We host events, run creative initiatives, publish writing, and build a culture where curiosity is the highest currency.",
   mission:
     "To cultivate a generation of curious, capable, and compassionate leaders by fostering an environment of inquiry, collaboration, and creative expression.",
+  sponsors: [
+    {
+      id: "s1",
+      name: "Guru Tegh Bahadur 4th Centenary Engineering College",
+      abbr: "GTBCEC",
+      category: "Institution Partner",
+      description:
+        "Host institution supporting our community, events, and student development programs.",
+      website: "https://gtbcec.edu.in",
+      image: "/sponsors/gtbcec.svg",
+    },
+    {
+      id: "s2",
+      name: "Azure Developer Community",
+      abbr: "ADC",
+      category: "Community Partner",
+      description:
+        "Supporting developer learning and mentoring through workshops and cloud training.",
+      website: "https://azure.microsoft.com",
+      image: "/sponsors/azure-developer-community.svg",
+    },
+    {
+      id: "s3",
+      name: "Microsoft Azure",
+      abbr: "Azure",
+      category: "Technology Sponsor",
+      description:
+        "Backing our initiatives with cloud tools, infrastructure, and platform support.",
+      website: "https://azure.microsoft.com",
+      image: "/sponsors/microsoft-azure.svg",
+    },
+    {
+      id: "s4",
+      name: "Reskill-i",
+      category: "Skill Development Partner",
+      description:
+        "Empowering students with career-ready skills and employability training.",
+      website: "https://reskill-i.com",
+      image: "/sponsors/reskill-i.svg",
+    },
+    {
+      id: "s5",
+      name: "Young Skilled India",
+      category: "Employment Partner",
+      description:
+        "Helping students stay employable with ongoing upskilling and industry exposure.",
+      website: "https://youngskilledindia.com",
+      image: "/sponsors/young-skilled-india.svg",
+    },
+  ],
   socialLinks: {
     instagram: "https://instagram.com",
     twitter: "https://twitter.com",

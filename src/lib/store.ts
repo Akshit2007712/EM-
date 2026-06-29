@@ -4,6 +4,8 @@
 import { supabase, IMAGES_BUCKET } from "./supabase";
 import { defaultContent } from "./data";
 
+const STORAGE_KEY = "empirical-society-content-v1";
+
 /* ---------- Types ---------- */
 
 export type Person = {
@@ -20,6 +22,15 @@ export type Team = {
   leads?: Person[];
   lead?: Person;
   members: Person[];
+};
+
+export type Sponsor = {
+  id: string;
+  name: string;
+  abbr?: string;
+  category?: string;
+  description: string;
+  website?: string;
 };
 
 export type EventItem = {
@@ -54,14 +65,11 @@ export type SiteContent = {
   mentors: Person[];
   faculty: Person[];
   leads: Person[];
+  sponsors: Sponsor[];
   teams: Team[];
   events: EventItem[];
   gallery: GalleryImage[];
 };
-
-/* ---------- Constants ---------- */
-
-const STORAGE_KEY = "empirical-society-content-v1";
 
 /* ---------- localStorage helpers ---------- */
 

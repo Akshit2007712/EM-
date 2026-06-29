@@ -1,0 +1,7 @@
+<svg width="300" height="120" viewBox="0 0 300 120" xmlns="http://www.w3.org/2000/svg">
+  <rect width="300" height="120" rx="18" fill="#072D74" />
+  <circle cx="70" cy="60" r="32" fill="#00A4EF" />
+  <circle cx="95" cy="60" r="32" fill="#6CB4EE" opacity="0.7" />
+  <text x="140" y="54" fill="#FFFFFF" font-family="Arial, sans-serif" font-size="20" font-weight="700">Azure</text>
+  <text x="140" y="76" fill="#FFFFFF" font-family="Arial, sans-serif" font-size="12">Developer Community</text>
+</svg>
