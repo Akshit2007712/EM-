@@ -3,7 +3,6 @@ import { useEffect } from "react";
 import { SiteNav } from "@/components/site-nav";
 import { Hero } from "@/components/hero";
 import { AboutSection, SiteFooter } from "@/components/about-section";
-import { SponsorsSection } from "@/components/sponsors-section";
 import { TeamSection } from "@/components/team-section";
 import { EventsSection } from "@/components/events-section";
 import { GallerySection } from "@/components/gallery-section";
@@ -46,7 +45,6 @@ function Index() {
       <main>
         <Hero tagline={content.heroTagline} subtitle={content.heroSubtitle} />
         <AboutSection />
-        <SponsorsSection />
         <TeamSection />
         <EventsSection />
         <GallerySection />

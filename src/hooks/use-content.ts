@@ -2,33 +2,38 @@ import { useEffect, useState } from "react";
 import { loadContent, fetchFromSupabase, type SiteContent } from "@/lib/store";
 
 export function useContent(): [SiteContent, (c: SiteContent) => void] {
-  // Show cached content immediately (zero flicker for visitors)
   const [content, setContent] = useState<SiteContent>(() => loadContent());
 
   useEffect(() => {
-    // Always pull fresh content from Supabase on mount.
-    // If Supabase is not configured, fetchFromSupabase() returns null
-    // and we keep showing the localStorage cache.
-    fetchFromSupabase().then((remote) => {
-      if (remote) {
-        // Update the localStorage read-cache
-        try {
-          localStorage.setItem(
-            "empirical-society-content-v1",
-            JSON.stringify(remote)
-          );
-        } catch {
-          // Cache write is best-effort
-        }
-        setContent(remote);
-      }
-    });
+    if (typeof window === "undefined") return;
 
-    // Keep multiple tabs in sync via storage events
+    const cached = loadContent();
+    if (cached) setContent(cached);
+
     const handler = () => setContent(loadContent());
     window.addEventListener("empirical:content-updated", handler);
     window.addEventListener("storage", handler);
+
+    const shouldRefresh = navigator.onLine && window.location.hostname !== "localhost";
+    if (!shouldRefresh) return () => {
+      window.removeEventListener("empirical:content-updated", handler);
+      window.removeEventListener("storage", handler);
+    };
+
+    const timer = window.setTimeout(() => {
+      fetchFromSupabase().then((remote) => {
+        if (!remote) return;
+        try {
+          localStorage.setItem("empirical-society-content-v1", JSON.stringify(remote));
+        } catch {
+          // best-effort
+        }
+        setContent(remote);
+      });
+    }, 180);
+
     return () => {
+      window.clearTimeout(timer);
       window.removeEventListener("empirical:content-updated", handler);
       window.removeEventListener("storage", handler);
     };

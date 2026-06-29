@@ -45,7 +45,7 @@ export function Hero({ tagline, subtitle }: Props) {
   const secondHalf = parts.slice(Math.ceil(parts.length / 2)).join(" ");
 
   return (
-    <section className="relative min-h-dvh flex flex-col justify-center items-center px-5 sm:px-6 pt-24 sm:pt-32 pb-12 sm:pb-16 text-center overflow-hidden">
+    <section className="relative min-h-dvh flex flex-col justify-center items-center px-5 sm:px-6 pt-20 sm:pt-24 pb-10 sm:pb-12 text-center overflow-hidden">
       {/* Parallax background image */}
       <div ref={imgRef} className="absolute inset-0 -z-20 will-change-transform" aria-hidden>
         <img

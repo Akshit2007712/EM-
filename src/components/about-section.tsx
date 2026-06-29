@@ -1,11 +1,43 @@
 import { useContent } from "@/hooks/use-content";
+import { useState } from "react";
 import { SectionHeading } from "./section-heading";
+import type { Sponsor } from "@/lib/store";
+
+function SponsorBadge({ sponsor }: { sponsor: Sponsor }) {
+  const [logoError, setLogoError] = useState(false);
+  const showLogo = sponsor.image && !logoError;
+
+  return (
+    <a
+      href={sponsor.website || "#"}
+      target="_blank"
+      rel="noreferrer"
+      className="inline-flex items-center gap-3 rounded-full border border-border bg-card/80 px-4 py-2 transition duration-300 hover:border-led hover:bg-accent/10"
+    >
+      {showLogo ? (
+        <img
+          src={sponsor.image}
+          alt={`${sponsor.name} logo`}
+          className="h-8 w-auto object-contain"
+          onError={() => setLogoError(true)}
+        />
+      ) : (
+        <div className="flex h-8 w-8 items-center justify-center rounded-full bg-muted text-[11px] font-semibold uppercase tracking-[0.16em] text-foreground">
+          {sponsor.abbr ?? sponsor.name.split(" ").slice(0, 2).map((part) => part[0]).join("")}
+        </div>
+      )}
+      <span className="text-xs font-semibold uppercase tracking-[0.16em] text-foreground">
+        {sponsor.name}
+      </span>
+    </a>
+  );
+}
 
 export function AboutSection() {
   const [content] = useContent();
   return (
     <section id="about" className="border-t border-border section-anchor">
-      <div className="max-w-[1440px] mx-auto px-6 md:px-10 py-16 md:py-24 grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-10">
+      <div className="max-w-[1440px] mx-auto px-6 md:px-10 py-12 md:py-16 grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-10">
         <div className="md:col-span-3 flex flex-col justify-between gap-6">
           <SectionHeading number="01" label="About" />
           <div className="hidden md:block text-[10px] font-medium tracking-[0.22em] uppercase text-muted-foreground">
@@ -110,6 +142,19 @@ export function SiteFooter() {
             </a>
           </div>
         </div>
+
+        {content.sponsors?.length ? (
+          <div className="border-t border-border/40 pt-6 mt-8">
+            <div className="mb-4 text-xs uppercase tracking-[0.2em] text-muted-foreground font-semibold">
+              Supported by
+            </div>
+            <div className="flex flex-wrap items-center gap-4">
+              {content.sponsors.map((sponsor) => (
+                <SponsorBadge key={sponsor.id} sponsor={sponsor} />
+              ))}
+            </div>
+          </div>
+        ) : null}
 
         {content.socialLinks?.phone && (
           <div className="border-t border-border/40 pt-4 flex flex-col sm:flex-row items-center justify-between gap-4">

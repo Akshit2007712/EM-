@@ -52,7 +52,7 @@ export function TeamSection() {
 
   return (
     <section id="team" className="border-t border-border section-anchor">
-      <div className="max-w-[1440px] mx-auto px-6 md:px-10 py-16 md:py-24">
+      <div className="max-w-[1440px] mx-auto px-6 md:px-10 py-12 md:py-16">
         <div className="mb-8 md:mb-10">
           <div className="space-y-4 md:space-y-6">
             <SectionHeading number="03" label="The Directorate" />
@@ -63,7 +63,7 @@ export function TeamSection() {
         </div>
 
         {/* Faculty Coordinators */}
-        <div className="mb-10">
+        <div className="mb-8">
           <div className="flex items-end justify-between mb-6 reveal">
             <h3 className="text-2xl md:text-3xl font-semibold tracking-tight">
               Faculty Coordinators
@@ -77,7 +77,7 @@ export function TeamSection() {
         </div>
 
         {/* Mentors */}
-        <div className="mb-10">
+        <div className="mb-8">
           <div className="flex items-end justify-between mb-6 reveal">
             <h3 className="text-2xl md:text-3xl font-semibold tracking-tight">Mentors</h3>
             <span className="text-[10px] tracking-[0.2em] uppercase text-muted-foreground">
@@ -92,7 +92,7 @@ export function TeamSection() {
         </div>
 
         {/* Heads */}
-        <div className="mb-12">
+        <div className="mb-8">
           <div className="flex items-end justify-between mb-6 reveal">
             <h3 className="text-2xl md:text-3xl font-semibold tracking-tight">Heads</h3>
           </div>
@@ -104,7 +104,7 @@ export function TeamSection() {
         </div>
 
         {/* Teams */}
-        <div className="border-t border-border pt-10">
+        <div className="border-t border-border pt-8">
           <div className="mb-8 reveal">
             <SectionHeading number="04" label="The Teams" />
             <h3 className="mt-6 text-3xl md:text-5xl font-semibold tracking-tight max-w-[24ch] text-balance">

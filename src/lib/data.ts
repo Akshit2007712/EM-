@@ -35,27 +35,7 @@ export const defaultContent: SiteContent = {
     "To cultivate a generation of curious, capable, and compassionate leaders by fostering an environment of inquiry, collaboration, and creative expression.",
   sponsors: [
     {
-      id: "s1",
-      name: "Guru Tegh Bahadur 4th Centenary Engineering College",
-      abbr: "GTBCEC",
-      category: "Institution Partner",
-      description:
-        "Host institution supporting our community, events, and student development programs.",
-      website: "https://gtbcec.edu.in",
-      image: "/sponsors/gtbcec.svg",
-    },
-    {
       id: "s2",
-      name: "Azure Developer Community",
-      abbr: "ADC",
-      category: "Community Partner",
-      description:
-        "Supporting developer learning and mentoring through workshops and cloud training.",
-      website: "https://azure.microsoft.com",
-      image: "/sponsors/azure-developer-community.svg",
-    },
-    {
-      id: "s3",
       name: "Microsoft Azure",
       abbr: "Azure",
       category: "Technology Sponsor",
@@ -65,8 +45,9 @@ export const defaultContent: SiteContent = {
       image: "/sponsors/microsoft-azure.svg",
     },
     {
-      id: "s4",
+      id: "s3",
       name: "Reskill-i",
+      abbr: "RS",
       category: "Skill Development Partner",
       description:
         "Empowering students with career-ready skills and employability training.",
@@ -74,8 +55,9 @@ export const defaultContent: SiteContent = {
       image: "/sponsors/reskill-i.svg",
     },
     {
-      id: "s5",
+      id: "s4",
       name: "Young Skilled India",
+      abbr: "YSI",
       category: "Employment Partner",
       description:
         "Helping students stay employable with ongoing upskilling and industry exposure.",

@@ -4,7 +4,7 @@
 import { supabase, IMAGES_BUCKET } from "./supabase";
 import { defaultContent } from "./data";
 
-const STORAGE_KEY = "empirical-society-content-v1";
+const STORAGE_KEY = "empirical-society-content-v2";
 
 /* ---------- Types ---------- */
 
@@ -31,6 +31,7 @@ export type Sponsor = {
   category?: string;
   description: string;
   website?: string;
+  image?: string;
 };
 
 export type EventItem = {
@@ -77,12 +78,21 @@ function isBrowser() {
   return typeof window !== "undefined";
 }
 
+function mergeSponsors(sponsors?: Sponsor[]): Sponsor[] {
+  if (!sponsors) return defaultContent.sponsors;
+  return sponsors.map((sponsor) => {
+    const base = defaultContent.sponsors.find((item) => item.id === sponsor.id);
+    return { ...base, ...sponsor } as Sponsor;
+  });
+}
+
 export function loadContent(): SiteContent {
   if (!isBrowser()) return defaultContent;
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (!raw) return defaultContent;
     const parsed = { ...defaultContent, ...JSON.parse(raw) };
+    parsed.sponsors = mergeSponsors(parsed.sponsors as Sponsor[]);
     // Back-compat: normalise legacy `lead` → `leads` array
     if (parsed.teams) {
       parsed.teams = parsed.teams.map((t: Team) => {

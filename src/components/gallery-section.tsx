@@ -29,7 +29,7 @@ export function GallerySection() {
 
   return (
     <section id="gallery" className="border-t border-border section-anchor">
-      <div className="max-w-[1440px] mx-auto px-6 md:px-10 py-16 md:py-24">
+      <div className="max-w-[1440px] mx-auto px-6 md:px-10 py-12 md:py-16">
         <div className="mb-8 md:mb-10 reveal">
           <SectionHeading number="06" label="Gallery" />
           <h2 className="mt-6 text-3xl md:text-6xl font-semibold tracking-tight max-w-[20ch] text-balance">

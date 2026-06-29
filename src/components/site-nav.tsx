@@ -5,7 +5,6 @@ import { Sun, Moon, Menu, X } from "lucide-react";
 import logoUrl from "../assets/logo.jpg";
 
 const NAV_LINKS = [
-  { href: "#sponsors", label: "Sponsors" },
   { href: "#team", label: "Team" },
   { href: "#events", label: "Events" },
   { href: "#gallery", label: "Gallery" },

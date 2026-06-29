@@ -14,7 +14,9 @@ function isValidUrl(url: string | undefined): url is string {
 let _client: SupabaseClient | null = null;
 
 if (isValidUrl(supabaseUrl) && supabaseAnonKey) {
-  _client = createClient(supabaseUrl, supabaseAnonKey);
+  _client = createClient(supabaseUrl, supabaseAnonKey, {
+    auth: { persistSession: false, autoRefreshToken: false },
+  });
 } else {
   console.warn(
     "[Supabase] VITE_SUPABASE_URL or VITE_SUPABASE_ANON_KEY not set. " +
