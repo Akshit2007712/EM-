@@ -143,19 +143,6 @@ export function SiteFooter() {
           </div>
         </div>
 
-        {content.sponsors?.length ? (
-          <div className="border-t border-border/40 pt-6 mt-8">
-            <div className="mb-4 text-xs uppercase tracking-[0.2em] text-muted-foreground font-semibold">
-             Our Previous Sponsors
-            </div>
-            <div className="flex flex-wrap items-center gap-4">
-              {content.sponsors.map((sponsor) => (
-                <SponsorBadge key={sponsor.id} sponsor={sponsor} />
-              ))}
-            </div>
-          </div>
-        ) : null}
-
         {content.socialLinks?.phone && (
           <div className="border-t border-border/40 pt-4 flex flex-col sm:flex-row items-center justify-between gap-4">
             <div className="flex flex-wrap items-center justify-center md:justify-start gap-3 normal-case tracking-normal text-xs text-muted-foreground/80">

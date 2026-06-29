@@ -5,6 +5,7 @@ import { supabase, IMAGES_BUCKET } from "./supabase";
 import { defaultContent } from "./data";
 
 const STORAGE_KEY = "empirical-society-content-v2";
+const LEGACY_STORAGE_KEY = "empirical-society-content-v1";
 
 /* ---------- Types ---------- */
 
@@ -104,7 +105,14 @@ function mergeSponsors(sponsors?: Sponsor[]): Sponsor[] {
 export function loadContent(): SiteContent {
   if (!isBrowser()) return defaultContent;
   try {
-    const raw = localStorage.getItem(STORAGE_KEY);
+    let raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) {
+      raw = localStorage.getItem(LEGACY_STORAGE_KEY);
+      if (raw) {
+        localStorage.setItem(STORAGE_KEY, raw);
+        localStorage.removeItem(LEGACY_STORAGE_KEY);
+      }
+    }
     if (!raw) return defaultContent;
     const parsed = { ...defaultContent, ...JSON.parse(raw) };
     parsed.sponsors = mergeSponsors(parsed.sponsors as Sponsor[]);

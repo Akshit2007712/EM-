@@ -24,7 +24,7 @@ export function useContent(): [SiteContent, (c: SiteContent) => void] {
       fetchFromSupabase().then((remote) => {
         if (!remote) return;
         try {
-          localStorage.setItem("empirical-society-content-v1", JSON.stringify(remote));
+          localStorage.setItem("empirical-society-content-v2", JSON.stringify(remote));
         } catch {
           // best-effort
         }
