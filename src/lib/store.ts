@@ -90,10 +90,21 @@ function mergeSponsors(sponsors?: Sponsor[]): Sponsor[] {
     sponsors.map((sponsor) => [sponsor.id, sponsor])
   );
 
-  const merged = defaultContent.sponsors.map((defaultSponsor) => ({
-    ...defaultSponsor,
-    ...storedSponsorsById.get(defaultSponsor.id),
-  }));
+  const merged = defaultContent.sponsors.map((defaultSponsor) => {
+    const storedSponsor = storedSponsorsById.get(defaultSponsor.id);
+    if (!storedSponsor) return defaultSponsor;
+
+    const definedFields = Object.fromEntries(
+      Object.entries(storedSponsor).filter(
+        ([, value]) => value !== undefined && value !== null && value !== ""
+      )
+    );
+
+    return {
+      ...defaultSponsor,
+      ...definedFields,
+    };
+  });
 
   const extraSponsors = sponsors
     .filter((sponsor) => !defaultSponsorsById.has(sponsor.id))

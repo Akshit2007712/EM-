@@ -61,7 +61,7 @@ export const defaultContent: SiteContent = {
       category: "Skill Development Partner",
       description:
         "Empowering students with career-ready skills and employability training.",
-      website: "https://reskill-i.com",
+      website: "https://reskilll.com/",
       image: "/sponsors/reskill-i.svg",
     },
     {

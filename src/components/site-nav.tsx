@@ -8,6 +8,7 @@ const NAV_LINKS = [
   { href: "#team", label: "Team" },
   { href: "#events", label: "Events" },
   { href: "#gallery", label: "Gallery" },
+  { to: "/partners", label: "Our Partners" },
 ];
 
 export function SiteNav() {
@@ -54,15 +55,25 @@ export function SiteNav() {
 
         {/* Desktop nav */}
         <nav className="hidden md:flex gap-8 text-xs font-medium tracking-widest uppercase text-muted-foreground">
-          {NAV_LINKS.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              className="relative py-1.5 transition-colors duration-300 hover:text-foreground after:absolute after:left-0 after:bottom-0 after:h-px after:w-full after:scale-x-0 after:bg-led after:transition-transform after:duration-300 hover:after:scale-x-100"
-            >
-              {link.label}
-            </a>
-          ))}
+          {NAV_LINKS.map((link) =>
+            link.to ? (
+              <Link
+                key={link.label}
+                to={link.to}
+                className="relative py-1.5 transition-colors duration-300 hover:text-foreground after:absolute after:left-0 after:bottom-0 after:h-px after:w-full after:scale-x-0 after:bg-led after:transition-transform after:duration-300 hover:after:scale-x-100"
+              >
+                {link.label}
+              </Link>
+            ) : (
+              <a
+                key={link.href}
+                href={link.href}
+                className="relative py-1.5 transition-colors duration-300 hover:text-foreground after:absolute after:left-0 after:bottom-0 after:h-px after:w-full after:scale-x-0 after:bg-led after:transition-transform after:duration-300 hover:after:scale-x-100"
+              >
+                {link.label}
+              </a>
+            )
+          )}
         </nav>
 
         <div className="flex items-center gap-3">
@@ -131,16 +142,27 @@ export function SiteNav() {
         aria-hidden={!menuOpen}
       >
         <nav className="flex flex-col px-5 pb-6 pt-2 gap-0 border-t border-border/40">
-          {NAV_LINKS.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              onClick={() => setMenuOpen(false)}
-              className="py-3.5 text-sm font-semibold tracking-[0.18em] uppercase text-muted-foreground hover:text-foreground transition-colors border-b border-border/30 last:border-0"
-            >
-              {link.label}
-            </a>
-          ))}
+          {NAV_LINKS.map((link) =>
+            link.to ? (
+              <Link
+                key={link.label}
+                to={link.to}
+                onClick={() => setMenuOpen(false)}
+                className="py-3.5 text-sm font-semibold tracking-[0.18em] uppercase text-muted-foreground hover:text-foreground transition-colors border-b border-border/30 last:border-0"
+              >
+                {link.label}
+              </Link>
+            ) : (
+              <a
+                key={link.href}
+                href={link.href}
+                onClick={() => setMenuOpen(false)}
+                className="py-3.5 text-sm font-semibold tracking-[0.18em] uppercase text-muted-foreground hover:text-foreground transition-colors border-b border-border/30 last:border-0"
+              >
+                {link.label}
+              </a>
+            )
+          )}
           
           {/* Mobile Theme Toggle Row */}
           <div className="flex items-center justify-between py-3.5 border-b border-border/30">
