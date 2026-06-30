@@ -7,9 +7,6 @@ export default defineConfig({
     preset: "vercel",
   },
   vite: {
-    plugins: [
-      tsconfigPaths(),
-      tailwindcss(),
-    ],
+    plugins: [tsconfigPaths(), tailwindcss()],
   },
 });

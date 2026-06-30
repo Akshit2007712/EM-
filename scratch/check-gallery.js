@@ -17,7 +17,7 @@ async function checkGallery() {
     if (content.gallery && content.gallery.length > 0) {
       console.log("First gallery item:", JSON.stringify(content.gallery[0], null, 2));
     } else {
-        console.log("Gallery is empty!");
+      console.log("Gallery is empty!");
     }
   }
 }

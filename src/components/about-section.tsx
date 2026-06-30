@@ -23,7 +23,12 @@ function SponsorBadge({ sponsor }: { sponsor: Sponsor }) {
         />
       ) : (
         <div className="flex h-10 w-10 items-center justify-center rounded-full bg-muted text-sm font-semibold uppercase tracking-[0.16em] text-foreground">
-          {sponsor.abbr ?? sponsor.name.split(" ").slice(0, 2).map((part) => part[0]).join("")}
+          {sponsor.abbr ??
+            sponsor.name
+              .split(" ")
+              .slice(0, 2)
+              .map((part) => part[0])
+              .join("")}
         </div>
       )}
       <span className="text-sm font-semibold uppercase tracking-[0.16em] text-foreground">
@@ -133,7 +138,10 @@ export function SiteFooter() {
               </a>
             )}
             {content.socialLinks?.email && (
-              <a href={content.socialLinks.email} className="hover:text-foreground transition-colors">
+              <a
+                href={content.socialLinks.email}
+                className="hover:text-foreground transition-colors"
+              >
                 Email
               </a>
             )}
@@ -146,7 +154,9 @@ export function SiteFooter() {
         {content.socialLinks?.phone && (
           <div className="border-t border-border/40 pt-4 flex flex-col sm:flex-row items-center justify-between gap-4">
             <div className="flex flex-wrap items-center justify-center md:justify-start gap-3 normal-case tracking-normal text-xs text-muted-foreground/80">
-              <span className="font-semibold uppercase tracking-wider text-[10px] text-muted-foreground">Contact Numbers:</span>
+              <span className="font-semibold uppercase tracking-wider text-[10px] text-muted-foreground">
+                Contact Numbers:
+              </span>
               <span>{content.socialLinks.phone}</span>
             </div>
           </div>

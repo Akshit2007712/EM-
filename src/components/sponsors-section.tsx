@@ -36,18 +36,27 @@ export function SponsorsSection({
                     />
                   ) : (
                     <div className="flex h-16 w-16 items-center justify-center rounded-3xl bg-muted text-sm font-semibold uppercase tracking-[0.22em] text-foreground text-center px-2">
-                      {sponsor.abbr ?? sponsor.name.split(" ").slice(0, 2).map((part) => part[0]).join("")}
+                      {sponsor.abbr ??
+                        sponsor.name
+                          .split(" ")
+                          .slice(0, 2)
+                          .map((part) => part[0])
+                          .join("")}
                     </div>
                   )}
                   <div className="w-full">
-                    <h3 className="text-xl md:text-2xl font-semibold tracking-tight">{sponsor.name}</h3>
+                    <h3 className="text-xl md:text-2xl font-semibold tracking-tight">
+                      {sponsor.name}
+                    </h3>
                     <p className="mt-3 text-sm uppercase tracking-[0.18em] text-muted-foreground">
                       {sponsor.category ?? "Previous sponsor"}
                     </p>
                   </div>
                 </div>
 
-                <p className="text-sm leading-relaxed text-muted-foreground">{sponsor.description}</p>
+                <p className="text-sm leading-relaxed text-muted-foreground">
+                  {sponsor.description}
+                </p>
 
                 {sponsor.website ? (
                   <span className="mt-6 inline-flex text-sm font-semibold text-led group-hover:text-foreground">

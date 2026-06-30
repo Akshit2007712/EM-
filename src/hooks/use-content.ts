@@ -15,10 +15,11 @@ export function useContent(): [SiteContent, (c: SiteContent) => void] {
     window.addEventListener("storage", handler);
 
     const shouldRefresh = navigator.onLine && window.location.hostname !== "localhost";
-    if (!shouldRefresh) return () => {
-      window.removeEventListener("empirical:content-updated", handler);
-      window.removeEventListener("storage", handler);
-    };
+    if (!shouldRefresh)
+      return () => {
+        window.removeEventListener("empirical:content-updated", handler);
+        window.removeEventListener("storage", handler);
+      };
 
     const timer = window.setTimeout(() => {
       fetchFromSupabase().then((remote) => {

@@ -21,11 +21,9 @@ router.post("/login", (req, res) => {
     return res.status(401).json({ error: "Unauthorized", message: "Incorrect password." });
   }
 
-  const token = jwt.sign(
-    { role: "admin", iat: Math.floor(Date.now() / 1000) },
-    JWT_SECRET,
-    { expiresIn: "8h" }
-  );
+  const token = jwt.sign({ role: "admin", iat: Math.floor(Date.now() / 1000) }, JWT_SECRET, {
+    expiresIn: "8h",
+  });
 
   return res.json({
     token,

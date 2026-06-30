@@ -30,10 +30,16 @@ export const Route = createRootRoute({
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: "The Empirical Society" },
-      { name: "description", content: "A community exploring empirical and scientific views of society." },
+      {
+        name: "description",
+        content: "A community exploring empirical and scientific views of society.",
+      },
       { name: "author", content: "The Empirical Society" },
       { property: "og:title", content: "The Empirical Society" },
-      { property: "og:description", content: "A community exploring empirical and scientific views of society." },
+      {
+        property: "og:description",
+        content: "A community exploring empirical and scientific views of society.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
     ],

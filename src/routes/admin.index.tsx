@@ -167,7 +167,10 @@ function AdminDashboard() {
               </span>
             )}
             {saveStatus === "error" && (
-              <span className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-red-500/10 text-red-600 dark:text-red-400 font-medium text-xs max-w-xs truncate" title={saveError}>
+              <span
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-red-500/10 text-red-600 dark:text-red-400 font-medium text-xs max-w-xs truncate"
+                title={saveError}
+              >
                 ⚠ {saveError}
               </span>
             )}
@@ -240,7 +243,10 @@ function ImageUpload({
 
         canvas.toBlob(
           async (blob) => {
-            if (!blob) { setUploading(false); return; }
+            if (!blob) {
+              setUploading(false);
+              return;
+            }
 
             if (supabase) {
               // Upload to Supabase Storage → permanent public URL
@@ -258,7 +264,7 @@ function ImageUpload({
             setUploading(false);
           },
           "image/jpeg",
-          0.88
+          0.88,
         );
       };
       img.src = event.target?.result as string;
@@ -283,9 +289,7 @@ function ImageUpload({
           disabled={uploading}
         />
       </label>
-      {uploadError && (
-        <p className="text-xs text-red-500">{uploadError}</p>
-      )}
+      {uploadError && <p className="text-xs text-red-500">{uploadError}</p>}
     </div>
   );
 }

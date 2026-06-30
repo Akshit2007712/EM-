@@ -39,8 +39,7 @@ export const defaultContent: SiteContent = {
       name: "EDA",
       abbr: "EDA",
       category: "Event Partner",
-      description:
-        "Fueling our society with events, experiences, and student-focused engagement.",
+      description: "Fueling our society with events, experiences, and student-focused engagement.",
       website: "https://eda.org",
       image: "/sponsors/eda.svg",
     },
@@ -59,8 +58,7 @@ export const defaultContent: SiteContent = {
       name: "Reskill-i",
       abbr: "RS",
       category: "Skill Development Partner",
-      description:
-        "Empowering students with career-ready skills and employability training.",
+      description: "Empowering students with career-ready skills and employability training.",
       website: "https://reskilll.com/",
       image: "/sponsors/reskill-i.svg",
     },

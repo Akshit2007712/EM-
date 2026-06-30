@@ -82,10 +82,10 @@ export function Hero({ tagline, subtitle }: Props) {
         <span className="relative z-10 text-sm font-semibold tracking-[0.18em] uppercase group-hover:text-led transition-colors duration-300">
           Explore
         </span>
-        <span className="relative z-10 group-hover:translate-y-1 transition-transform duration-300">↓</span>
+        <span className="relative z-10 group-hover:translate-y-1 transition-transform duration-300">
+          ↓
+        </span>
       </a>
-
-
     </section>
   );
 }

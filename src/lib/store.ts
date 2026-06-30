@@ -83,12 +83,10 @@ function mergeSponsors(sponsors?: Sponsor[]): Sponsor[] {
   if (!sponsors) return defaultContent.sponsors;
 
   const defaultSponsorsById = new Map(
-    defaultContent.sponsors.map((sponsor) => [sponsor.id, sponsor])
+    defaultContent.sponsors.map((sponsor) => [sponsor.id, sponsor]),
   );
 
-  const storedSponsorsById = new Map(
-    sponsors.map((sponsor) => [sponsor.id, sponsor])
-  );
+  const storedSponsorsById = new Map(sponsors.map((sponsor) => [sponsor.id, sponsor]));
 
   const merged = defaultContent.sponsors.map((defaultSponsor) => {
     const storedSponsor = storedSponsorsById.get(defaultSponsor.id);
@@ -96,8 +94,8 @@ function mergeSponsors(sponsors?: Sponsor[]): Sponsor[] {
 
     const definedFields = Object.fromEntries(
       Object.entries(storedSponsor).filter(
-        ([, value]) => value !== undefined && value !== null && value !== ""
-      )
+        ([, value]) => value !== undefined && value !== null && value !== "",
+      ),
     );
 
     return {
@@ -215,9 +213,7 @@ export async function uploadImage(blob: Blob): Promise<string | null> {
  * Save content to Supabase (primary) and update the localStorage cache.
  * This is the main save function used by the admin panel.
  */
-export async function saveContent(
-  c: SiteContent
-): Promise<{ ok: boolean; error?: string }> {
+export async function saveContent(c: SiteContent): Promise<{ ok: boolean; error?: string }> {
   if (!isBrowser()) return { ok: false, error: "Not in browser" };
   try {
     await saveToSupabase(c);
@@ -226,14 +222,11 @@ export async function saveContent(
   } catch (err) {
     // Supabase failed — try to at least cache locally
     cacheContent(c);
-    const msg =
-      err instanceof Error ? err.message : "Failed to save to database";
+    const msg = err instanceof Error ? err.message : "Failed to save to database";
     console.error("[store] saveContent:", msg);
     return {
       ok: false,
-      error: supabase
-        ? `Database error: ${msg}`
-        : "Database not configured — saved locally only.",
+      error: supabase ? `Database error: ${msg}` : "Database not configured — saved locally only.",
     };
   }
 }
@@ -245,9 +238,7 @@ export async function resetContent() {
   localStorage.removeItem(STORAGE_KEY);
   if (supabase) {
     try {
-      await supabase
-        .from("site_content")
-        .upsert({ id: "main", data: defaultContent });
+      await supabase.from("site_content").upsert({ id: "main", data: defaultContent });
     } catch {
       // best-effort
     }
@@ -263,10 +254,7 @@ const ADMIN_PASSWORD = "empirical2024";
 function mintLocalToken(): string {
   const expiry = Math.floor(Date.now() / 1000) + 8 * 3600;
   const header = btoa(JSON.stringify({ alg: "local" })).replace(/=/g, "");
-  const body = btoa(JSON.stringify({ role: "admin", exp: expiry })).replace(
-    /=/g,
-    ""
-  );
+  const body = btoa(JSON.stringify({ role: "admin", exp: expiry })).replace(/=/g, "");
   return `${header}.${body}.local`;
 }
 

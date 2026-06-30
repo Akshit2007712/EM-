@@ -25,7 +25,7 @@ app.use(
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true,
-  })
+  }),
 );
 
 // ─── BODY PARSER ──────────────────────────────────────────────────────────────
@@ -48,7 +48,10 @@ const authLimiter = rateLimit({
   max: 10,
   standardHeaders: true,
   legacyHeaders: false,
-  message: { error: "Too Many Requests", message: "Too many login attempts. Try again in 15 minutes." },
+  message: {
+    error: "Too Many Requests",
+    message: "Too many login attempts. Try again in 15 minutes.",
+  },
 });
 
 app.use("/api/", apiLimiter);

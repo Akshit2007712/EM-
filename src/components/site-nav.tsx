@@ -29,7 +29,9 @@ export function SiteNav() {
   // Lock body scroll when mobile menu is open
   useEffect(() => {
     document.body.style.overflow = menuOpen ? "hidden" : "";
-    return () => { document.body.style.overflow = ""; };
+    return () => {
+      document.body.style.overflow = "";
+    };
   }, [menuOpen]);
 
   return (
@@ -73,7 +75,7 @@ export function SiteNav() {
               >
                 {link.label}
               </a>
-            )
+            ),
           )}
         </nav>
 
@@ -162,9 +164,9 @@ export function SiteNav() {
               >
                 {link.label}
               </a>
-            )
+            ),
           )}
-          
+
           {/* Mobile Theme Toggle Row */}
           <div className="flex items-center justify-between py-3.5 border-b border-border/30">
             <span className="text-sm font-semibold tracking-[0.18em] uppercase text-muted-foreground">

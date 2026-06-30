@@ -4,10 +4,7 @@ const { createClient } = require("@supabase/supabase-js");
 const { requireAuth } = require("../middleware/auth");
 
 // Use the service role key — full DB access, only used server-side
-const supabase = createClient(
-  process.env.SUPABASE_URL,
-  process.env.SUPABASE_SERVICE_ROLE_KEY
-);
+const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY);
 
 const CONTENT_ID = 1; // single-row content record
 
@@ -81,10 +78,7 @@ router.post("/", requireAuth, async (req, res) => {
  */
 router.delete("/", requireAuth, async (req, res) => {
   try {
-    const { error } = await supabase
-      .from("site_content")
-      .delete()
-      .eq("id", CONTENT_ID);
+    const { error } = await supabase.from("site_content").delete().eq("id", CONTENT_ID);
 
     if (error) throw error;
 

@@ -20,7 +20,7 @@ if (isValidUrl(supabaseUrl) && supabaseAnonKey) {
 } else {
   console.warn(
     "[Supabase] VITE_SUPABASE_URL or VITE_SUPABASE_ANON_KEY not set. " +
-      "Content will be stored in localStorage as a fallback."
+      "Content will be stored in localStorage as a fallback.",
   );
 }
 
