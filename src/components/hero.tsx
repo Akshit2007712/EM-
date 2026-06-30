@@ -75,7 +75,7 @@ export function Hero({ tagline, subtitle }: Props) {
       </p>
 
       <a
-        href="#about"
+        href="/#about"
         className="group relative inline-flex items-center gap-3 px-8 py-4 rounded-full bg-foreground/5 backdrop-blur-md border border-foreground/15 shadow-md hover:border-led/60 hover:bg-led/10 hover:shadow-[0_0_40px_rgba(93,170,255,0.18)] overflow-hidden transition-all duration-500 reveal"
       >
         <span className="absolute inset-0 bg-gradient-to-r from-transparent via-led/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />

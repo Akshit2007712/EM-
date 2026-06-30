@@ -91,13 +91,13 @@ export function SiteFooter() {
             The Empirical Society © {new Date().getFullYear()}
           </div>
           <div className="flex flex-wrap items-center justify-center gap-6">
-            <a href="#team" className="hover:text-foreground transition-colors">
+            <a href="/#team" className="hover:text-foreground transition-colors">
               Team
             </a>
-            <a href="#events" className="hover:text-foreground transition-colors">
+            <a href="/#events" className="hover:text-foreground transition-colors">
               Events
             </a>
-            <a href="#gallery" className="hover:text-foreground transition-colors">
+            <a href="/#gallery" className="hover:text-foreground transition-colors">
               Gallery
             </a>
           </div>
